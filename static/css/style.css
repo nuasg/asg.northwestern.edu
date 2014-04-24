@@ -1,0 +1,385 @@
+body {
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    text-rendering: optimizeLegibility;
+    background: #f3f3f3;
+    font-size: 18px;
+}
+.container {
+    background: #fff;
+}
+
+.header img {
+    width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+}
+.navbar-nav a,
+.navbar-brand {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+}
+
+.alert {
+    font-size: 18px;
+}
+
+.navbar-main {
+    background-color: #6742a7;
+    border: none;
+}
+
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a {
+    background-color: transparent;
+}
+.navbar-inverse .navbar-nav>.open>a,
+.navbar-inverse .navbar-nav>.open>a:hover,
+.navbar-inverse .navbar-nav>.open>a:focus {
+    background-color: #210022;
+}
+
+.navbar-main .dropdown-menu > li > a {
+    color: #444;
+    font-size: 18px;
+}
+.navbar-main .dropdown-menu > li > a:hover {
+    background-color: #ddd;
+}
+.navbar-main .dropdown-menu .divider {
+    margin: 6px 0;
+}
+
+.navbar-main .navbar-nav > li > a,
+.navbar-brand {
+    text-transform: uppercase;
+    font-size: 18px;
+}
+.navbar-main {
+    text-align: center;
+    border-radius: 0;
+}
+
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-nav > li > a {
+    color: #e0e0e0;
+}
+.navbar-inverse .navbar-nav > li.dropdown:hover > a,
+.navbar-inverse .navbar-nav > li.dropdown:focus > a {
+    color: #fff;
+}
+
+/* equal spacing for main menu items */
+/* assumes there are a total of seven items */
+@media (min-width: 768px) {
+    .navbar-main .nav {
+        width: 90%;
+    }
+    .navbar-main .nav > li {
+        padding-left: .1%;
+        padding-right: .1%;
+    }
+
+    .navbar-inverse .navbar-brand,
+    .navbar-inverse .navbar-nav > li > a {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .navbar-main .navbar-header {
+        width: 12%;
+    }
+    .navbar-main .navbar-header .navbar-brand {
+        width: 100%;
+    }
+    .navbar-main .navbar-collapse {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .navbar-main .navbar-nav {
+        width: 88%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .navbar-main .navbar-nav > li {
+        /* BELOW: specify for each width */
+        /* width: 14.2%; */
+        /* margin-right: 2%; */
+    }
+
+    /* changes that aren't relevant to mobile view */
+    /* center main menu dropdowns */
+    .navbar-main .dropdown-menu {
+        width: 160px;
+        left: 50%;
+        margin-left: -80px;
+    }
+    /* show dropdown menu on hover */
+    ul.nav li.dropdown:hover > ul.dropdown-menu {
+        display: block;    
+    }
+}
+
+
+/* small breakpoint */
+@media (min-width: 768px) and (max-width: 991px) {
+    .navbar-main .navbar-nav > li {
+        margin-right: .8em;
+    }
+}
+/* medium breakpoint */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .navbar-main .navbar-nav > li {
+        margin-left: .5em;
+        margin-right: 1.5em;
+    }
+}
+/* large breakpoint */
+@media (min-width: 1200px) {
+    .navbar-main .navbar-nav > li {
+        margin-left: .9em;
+        margin-right: 2.5em;
+    }
+}
+
+
+/* homepage stuff */
+/* tweak homepage announcements spacing */
+.announcements h3 {
+    margin-top: 0;
+}
+.announcements p {
+    margin-bottom: 0;
+}
+.announcements li {
+    margin-bottom: 16px;
+}
+.announcements li > p {
+    font-weight: bold;
+}
+
+@media (max-width: 991px) {
+    .homepage-slideshow {
+        margin-top: 20px;
+    }
+}
+
+
+/* recent legislation tweaks */
+.no-bullets {
+    list-style-type: none;
+    padding-left: 0;
+}
+ul.legislation,
+ul.events,
+ul.in-news {
+    font-size: 16px;
+    list-style-type: none;
+    padding-left: 0;
+}
+ul.legislation li,
+ul.events li,
+ul.in-news li {
+    margin-bottom: 6px;
+}
+ul.legislation small,
+ul.events small,
+ul.in-news small {
+    font-size: 13px;
+    font-variant: small-caps;
+}
+
+
+
+/* footer */
+.footer {
+    background: #545059 url(footer_shadow.png) center top no-repeat;
+    margin-top: 40px;
+}
+.footer-text p {
+    color: #e5e5e5;
+    margin-top: 24px;
+    font-size: 15px;
+}
+.footer-text a {
+    color: #fff;
+}
+.nu-logo img {
+    margin: 25px 40px;
+    height: 80px;
+}
+
+
+
+/* mobile tweaks */
+@media (max-width: 767px) {
+    h1 {
+        font-size: 30px;
+    }
+    h2 {
+        font-size: 26px;
+    }
+    h3 {
+        font-size: 23px;
+    }
+    h4 {
+        font-size: 20px;
+    }
+    h5 {
+        font-size: 18px;
+    }
+    h6 {
+        font-size: 16px;
+    }
+    body {
+        font-size: 15px;
+    }
+    .alert {
+        font-size: 16px;
+    }
+    .nu-logo img {
+        display: block;
+        margin: 30px auto;
+        max-width: 100%;
+        height: auto;
+    }
+    .footer-text {
+        text-align: center;
+    }
+}
+
+
+/* changes for small screen width */
+@media (min-width: 768px) and (max-width: 991px) {
+    .news h3 {
+        margin-top: 20px;
+    }
+    .navbar-brand,
+    .navbar-main .nav > li > a {
+        padding: 15px 0;
+        font-size: 16px;
+    }
+    .navbar-main .dropdown-menu {
+        min-width: 140px; /* override parent style */
+        width: 140px;
+        margin-left: -70px;
+    }
+    .navbar-main .navbar-nav > li {
+        min-width: 12%;
+    }
+    .navbar-main .dropdown-menu li > a {
+        font-size: 15px;
+    }
+    .nu-logo img {
+        margin: 20px 30px;
+        height: 65px;
+    }
+    .footer-text p {
+        margin-top: 20px;
+        font-size: 12px;
+    }
+}
+
+
+
+
+
+/* student resources page */
+.list-group.no-border .list-group-item {
+    border: none;
+}
+.list-group-item-text {
+    line-height: 1.4;
+}
+.services .list-group img + p {
+    margin-top: 10px;
+}
+
+
+
+
+
+
+/* responsive slides css */
+.rslides {
+    position: relative;
+    list-style: none;
+    overflow: hidden;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    /* custom */
+    /* max-height: 400px; */
+}
+.rslides li {
+    -webkit-backface-visibility: hidden;
+    position: absolute;
+    display: none;
+    width: 100%;
+    left: 0;
+    top: 0;
+}
+.rslides li:first-child {
+    position: relative;
+    display: block;
+    float: left;
+}
+.rslides img {
+    display: block;
+    height: auto;
+    float: left;
+    width: 100%;
+    border: 0;
+}
+.caption {
+    position: absolute;
+    display: block;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 15px;
+    margin-bottom: 0;
+    text-align: center;
+    background: #000;
+    background: rgba(0,0,0, .8);
+    color: #fff;
+}
+
+
+
+.rslides_tabs {
+    text-align: center;
+    margin-bottom: 0;
+    padding-left: 0;
+}
+.rslides_tabs li {
+    display: inline;
+    float: none;
+    _float: left;
+            *float: left;
+            margin-right: 5px;
+}
+.rslides_tabs a {
+    text-indent: -9999px;
+    overflow: hidden;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    background: #ccc;
+    background: rgba(0,0,0, .2);
+    display: inline-block;
+    _display: block;
+              *display: block;
+              -webkit-box-shadow: inset 0 0 2px 0 rgba(0,0,0,.3);
+              -moz-box-shadow: inset 0 0 2px 0 rgba(0,0,0,.3);
+              box-shadow: inset 0 0 2px 0 rgba(0,0,0,.3);
+              width: 9px;
+              height: 9px;
+}
+.rslides_here a {
+    background: #222;
+    background: rgba(0,0,0, .8);
+}
+
