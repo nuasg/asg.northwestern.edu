@@ -9,7 +9,9 @@ def home(request):
     announcements = Announcement.objects.order_by('-date_posted')[:2]
     bills = Legislation.objects.all()[:5]
     news_links = NewsLink.objects.order_by('-date_published')[:5]
-    return render_to_response('home.html', locals())
+    slides = HomepageSlide.objects.filter(active=True)
+    return render_to_response('home.html', locals(),
+                context_instance=RequestContext(request))
 
 def page(request, page_slug):
     page = get_object_or_404(Page, slug=page_slug)

@@ -179,14 +179,18 @@ class Calendar(models.Model):
         return self.caption
 
 class HomepageSlide(models.Model):
-    image = models.FileField(upload_to='homepage')
-    caption = tmodels.HTMLField(blank=True)
+    image = models.ImageField(upload_to='homepage_slides')
+    link = models.URLField(blank=True)
+    caption = models.CharField(max_length=255, blank=True)
+    active = models.BooleanField(default=True)
+    order = models.IntegerField(blank=True, null=True)
 
     def __unicode__(self):
         return self.caption
 
     class Meta:
         verbose_name_plural = 'Homepage slides'
+        ordering = ['active', 'order', 'caption']
 
 PAGE_WIDTHS = (
     ('9', 'Default'),

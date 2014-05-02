@@ -23,6 +23,9 @@ class ResourceAdmin(admin.ModelAdmin):
         'users': admin.VERTICAL,
     }
 
+class HomepageSlideAdmin(admin.ModelAdmin):
+    list_display = ('caption', 'order', 'active')
+
 
 admin.site.register(Alert)
 admin.site.register(Announcement, AnnouncementAdmin)
@@ -34,6 +37,6 @@ admin.site.register(Legislation)
 admin.site.register(NewsLink)
 admin.site.register(Event, EventAdmin)
 admin.site.register(Calendar)
-admin.site.register(HomepageSlide)
+admin.site.register(HomepageSlide, HomepageSlideAdmin)
 admin.site.register(Page, PageAdmin)
 admin.site.register(Resource, ResourceAdmin)

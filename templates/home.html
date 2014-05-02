@@ -40,18 +40,14 @@
 
       <div class="col-md-7 col-md-pull-5 homepage-slideshow">
         <ul class="rslides">
+          {% for slide in slides %}
+          {% if slide.link %}<a href="{{ slide.link }}">{% endif %}
           <li>
-          <img src="http://dailynorthwestern.com/wp-content/uploads/2014/04/DebateCompWeb.jpg" alt="...">
-          <p class="caption">Presidential candidates face off in debates</p>
+          <img src="{{ MEDIA_URL }}{{ slide.image }}" alt="">
+          {% if slide.caption %}<p class="caption">{{ slide.caption }}</p>{% endif %}
           </li>
-          <li>
-          <img src="http://dailynorthwestern.com/wp-content/uploads/2014/01/BIKESTORAGE_InaYang-780x520.jpg" alt="...">
-          <p class="caption">Bike storage problems</p>
-          </li>
-          <li>
-          <img src="http://dailynorthwestern.com/wp-content/uploads/2014/01/UNION_AnnabelEdwards-780x520.jpg" alt="...">
-          <p class="caption">Students react to Obama's State of the Union</p>
-          </li>
+          {% if slide.link %}</a>{% endif %}
+          {% endfor %}
         </ul>
       </div>
     </div>
