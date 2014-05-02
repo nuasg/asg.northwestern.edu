@@ -17,6 +17,7 @@ class Announcement(models.Model):
     link_title_to = models.URLField(blank=True)
     slug = models.SlugField()
     message = tmodels.HTMLField()
+
     date_posted = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
@@ -32,13 +33,13 @@ WEBSITE_ROLES = [
 class Person(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    website_role = models.CharField(max_length=4, choices=WEBSITE_ROLES, blank=True)
+    email = models.EmailField(max_length=254, blank=True)
+    date_joined = models.DateField(blank=True, null=True)
     positions = models.ManyToManyField('Position', blank=True)
     bio = models.TextField(blank=True)
     photo = models.FileField(upload_to='profile_photos', blank=True)
 
-    email = models.EmailField(max_length=254, blank=True)
-    date_joined = models.DateField(blank=True)
+    website_role = models.CharField(max_length=4, choices=WEBSITE_ROLES, blank=True)
     user = models.ForeignKey(User, null=True, blank=True)
 
     # Person will have projects, committees from
@@ -48,10 +49,11 @@ class Person(models.Model):
         return self.full_name()
 
     def full_name(self):
-        return '%s %s' % (first_name, last_name)
+        return '%s %s' % (self.first_name, self.last_name)
 
     class Meta:
         verbose_name_plural = 'People'
+        ordering = ['last_name']
 
 
 class Position(models.Model):
@@ -61,9 +63,13 @@ class Position(models.Model):
     # For director positions on committees, etc.
     committee = models.ForeignKey('Committee', null=True, blank=True)
 
+    order = models.IntegerField(blank=True)
     on_exec_board = models.BooleanField(default=True)
-    senate_leadership = models.BooleanField(default=True)
+    senate_leadership = models.BooleanField(default=False)
     
+    class Meta:
+        ordering = ['on_exec_board', 'senate_leadership', 'order']
+
     def __unicode__(self):
         return self.name
 
@@ -207,17 +213,15 @@ RESOURCE_USERS = (
 class Resource(models.Model):
     name = models.CharField(max_length=100, blank=True)
     logo_image = models.FileField(upload_to='resource_logos', blank=True)
-    resource_type = models.CharField(max_length=1, choices=RESOURCE_TYPES)
-    resource_users = models.CharField(max_length=2, choices=RESOURCE_USERS)
+    type = models.CharField(max_length=1, choices=RESOURCE_TYPES)
+    users = models.CharField(max_length=2, choices=RESOURCE_USERS)
     description = models.TextField(blank=True)
     link = models.URLField(blank=True)
 
     def __unicode__(self):
-        return '%s for %s: %s' % (
-                    self.get_resource_type_display(),
-                    self.get_resource_users_display(),
-                    self.name
-                )
+        return '%s for %s: %s' % (self.get_type_display(),
+                                  self.get_users_display(),
+                                  self.name)
 
     class Meta:
         verbose_name_plural = 'Resources and Services'

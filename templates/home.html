@@ -31,11 +31,11 @@
           {% for announcement in announcements %}
           <li>
           <p><a {% if announcement.link_title_to %}target="_blank" href="{{ announcement.link_title_to }}"{% else %}href="/announcements/{{ announcement.slug }}"{% endif %}>{{ announcement.title }}</a></p>
-          <small>{{ announcement.message|safe }}</small>
+          <small>{{ announcement.message|safe|truncatewords_html:30 }}{% if not announcement.link_title_to %}<a href="/announcements/{{ announcement.slug }}">Read more &raquo;</a>{% endif %}</small>
           </li>
           {% endfor %}
         </ul>
-        <p><a class="btn btn-default" href="/announcements">Older announcements &raquo;</a></p>
+        <p><a class="btn btn-default" href="/announcements/">Older announcements &raquo;</a></p>
       </div>
 
       <div class="col-md-7 col-md-pull-5 homepage-slideshow">
@@ -67,7 +67,7 @@
           </li>
           {% endfor %}
         </ul>
-        <p><a class="btn btn-default" href="/events">Other events &raquo;</a></p>
+        <p><a class="btn btn-default" href="/calendar/">Other events &raquo;</a></p>
       </div>
 
       <div class="col-sm-4 col-md-4">
@@ -76,11 +76,11 @@
           {% for bill in bills %}
           <li>
             <a href="{{ bill.link }}" target="_blank">{{ bill.code }}: {{ bill.name }}</a><br>
-            <small>{{ bill.get_status_display }}{% if bill.status_date %} {{ bill.status_date}}{% endif %}</small>
+            <small>{{ bill.get_status_display }}{% if bill.status_date %} on {{ bill.status_date}}{% endif %}</small>
           </li>
           {% endfor %}
         </ul>
-        <p><a class="btn btn-default" href="/bills">Browse all legislation &raquo;</a></p>
+        <p><a class="btn btn-default" href="/legislation/">Browse all legislation &raquo;</a></p>
       </div>
 
       <div class="col-sm-4 col-md-5">
@@ -93,7 +93,7 @@
           </li>
           {% endfor %}
         </ul>
-        <p><a class="btn btn-default" href="/in-the-news">Previous articles &raquo;</a></p>
+        <p><a class="btn btn-default" href="/in-the-news/">Previous articles &raquo;</a></p>
       </div>
     </div>
 {% endblock content %}

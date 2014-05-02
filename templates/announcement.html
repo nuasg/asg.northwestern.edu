@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ announcement.title }} | Associated Student Government{% endblock title %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-12">
+    <p><a class="btn btn-default" href="/announcements/">&laquo; All announcements</a></p>
+    <h1>{{ announcement.title }}</h1>
+    <p class="text-muted">Posted {{ announcement.date_posted|date:"f a \o\n F d, Y" }}</p>
+    {{ announcement.message|safe }}
+  </div>
+</div>
+{% endblock content %}
