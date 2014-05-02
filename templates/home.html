@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Northwestern Associated Student Government{% endblock title %}
+{% block head %}
+  <script type="text/javascript" src="{% static 'js/responsiveslides.min.js' %}"></script>
+  <script>
+    $(function() {
+      $('.rslides').responsiveSlides({
+        auto: true,
+        speed: 800,
+        pager: true,
+        pause: true,
+      });
+    });
+  </script>
+{% endblock head %}
+{% block content %}
+    <div class="row">
+      <div class="col-md-12">
+        {% for alert in alerts %}
+        <div class="alert alert-info">{{ alert.html }}</div>
+        {% endfor %}
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-5 col-md-push-7 announcements">
+        <h3>Announcements</h3>
+        <ul class="no-bullets">
+          {% for announcement in announcements %}
+          <li>
+          <p><a {% if announcement.link_title_to %}target="_blank" href="{{ announcement.link_title_to }}"{% else %}href="/announcements/{{ announcement.slug }}"{% endif %}>{{ announcement.title }}</a></p>
+          <small>{{ announcement.message|safe }}</small>
+          </li>
+          {% endfor %}
+        </ul>
+        <p><a class="btn btn-default" href="/announcements">Older announcements &raquo;</a></p>
+      </div>
+
+      <div class="col-md-7 col-md-pull-5 homepage-slideshow">
+        <ul class="rslides">
+          <li>
+          <img src="http://dailynorthwestern.com/wp-content/uploads/2014/04/DebateCompWeb.jpg" alt="...">
+          <p class="caption">Presidential candidates face off in debates</p>
+          </li>
+          <li>
+          <img src="http://dailynorthwestern.com/wp-content/uploads/2014/01/BIKESTORAGE_InaYang-780x520.jpg" alt="...">
+          <p class="caption">Bike storage problems</p>
+          </li>
+          <li>
+          <img src="http://dailynorthwestern.com/wp-content/uploads/2014/01/UNION_AnnabelEdwards-780x520.jpg" alt="...">
+          <p class="caption">Students react to Obama's State of the Union</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4 col-md-3">
+        <h3>Upcoming events</h3>
+        <ul class="events">
+          {% for event in events %}
+          <li>
+            <a href="/events/{{ event.slug }}">{{ event.name }}</a><br>
+            <small>{{ event.list_render }}</small>
+          </li>
+          {% endfor %}
+        </ul>
+        <p><a class="btn btn-default" href="/events">Other events &raquo;</a></p>
+      </div>
+
+      <div class="col-sm-4 col-md-4">
+        <h3>Recent legislation</h3>
+        <ul class="legislation">
+          {% for bill in bills %}
+          <li>
+            <a href="{{ bill.link }}" target="_blank">{{ bill.code }}: {{ bill.name }}</a><br>
+            <small>{{ bill.get_status_display }}{% if bill.status_date %} {{ bill.status_date}}{% endif %}</small>
+          </li>
+          {% endfor %}
+        </ul>
+        <p><a class="btn btn-default" href="/bills">Browse all legislation &raquo;</a></p>
+      </div>
+
+      <div class="col-sm-4 col-md-5">
+        <h3>ASG in the News</h3>
+        <ul class="in-news">
+          {% for news_link in news_links %}
+          <li>
+          <a href="{{ news_link.link }}" target="_blank">{{ news_link.name }}</a><br>
+            <small>{{ news_link.get_source_display }} - {{ news_link.date_published|date:'F d, Y' }}</small>
+          </li>
+          {% endfor %}
+        </ul>
+        <p><a class="btn btn-default" href="/in-the-news">Previous articles &raquo;</a></p>
+      </div>
+    </div>
+{% endblock content %}

@@ -33,6 +33,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'asg',
+    'south',
+    'tinymce',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -82,9 +85,32 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+MEDIA_URL = '/uploads/'
+MEDIA_ROOT = 'media'
+MEDIAFILES_DIRS = (
+    os.path.join(BASE_DIR, 'media'),
+)
+
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
+
+
+# TinyMCE settings
+
+TINYMCE_JS_URL = 'tinymce/tinymce.min.js'
+TINYMCE_JS_ROOT = 'tinymce'
+TINYMCE_DEFAULT_CONFIG = {
+    'theme': 'modern',
+    'height': 400,
+    'content_css': '/static/editor.css',
+    'plugins': [
+        'advlist autolink lists link image charmap print preview anchor',
+        'searchreplace visualblocks code fullscreen',
+        'insertdatetime media table contextmenu paste'
+    ],
+    'toolbar': 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+}
 
 try:
     from local_settings import *

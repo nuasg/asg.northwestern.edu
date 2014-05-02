@@ -8,7 +8,12 @@
   <link href='//fonts.googleapis.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
   <link href='//fonts.googleapis.com/css?family=Lato:400,700,400italic' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'style.css' %}" />
+  <style>
+  .footer {
+    background: #545059 url({% static 'images/footer_shadow.png' %}) center top no-repeat;
+  }
+  </style>
   <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
 {% block head %}
@@ -39,7 +44,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Home</a>
+        <a class="navbar-brand" href="/">Home</a>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -47,16 +52,16 @@
         <ul class="nav navbar-nav">
     
           <li class="dropdown">
-          <a href="#">About ASG</a>
+          <a href="/about/">About ASG</a>
           <ul class="dropdown-menu pull-center">
-            <li><a href="#">Mission</a></li>
+            <li><a href="/mission/">Mission</a></li>
             <li><a href="#">Constitution</a></li>
             <li><a href="#">Get Involved</a></li>
-            <li><a href="#">Contact Us</a></li>
+            <li><a href="/contact/">Contact Us</a></li>
           </ul>
           </li>
           <li class="dropdown">
-          <a href="#">Branches</a>
+          <a href="/branches/">Branches</a>
           <ul class="dropdown-menu">
             <li><a href="#">Cabinet</a></li>
             <li class="divider"></li>
@@ -66,20 +71,20 @@
           </ul>
           </li>
           <li>
-          <a href="resources.html">For Students</a>
+          <a href="/for-students/">For Students</a>
           </li>
           <li>
-            <a href="#">For Groups</a>
+            <a href="/for-groups/">For Groups</a>
           </li>
           <li class="dropdown">
-          <a href="#">Advocacy</a>
+          <a href="/advocacy/">Advocacy</a>
           <ul class="dropdown-menu">
-            <li><a href="#">Campus Voice</a></li>
+            <li><a href="https://campusvoice.northwestern.edu/" target="_blank">Campus Voice</a></li>
             <li><a href="#">Office Hours</a></li>
           </ul>
           </li>
           <li>
-            <a href="#">Calendar</a>
+            <a href="/calendar/">Calendar</a>
           </li>
         </ul>
       </div><!-- /.navbar-collapse -->
@@ -236,5 +241,7 @@
       </div>
     </div>
   </div>
+{% block scripts %}
+{% endblock scripts %}
 </body>
 </html>

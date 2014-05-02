@@ -8,5 +8,9 @@ urlpatterns = patterns('asg.views',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^$', 'home', name='home'),
+    url(r'^for-students/', 'for_students'),
+    url(r'^for-groups/', 'for_groups'),
+    url(r'^calendar/', 'calendar'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^(?P<page_slug>\w+)/$', 'page'),
 )

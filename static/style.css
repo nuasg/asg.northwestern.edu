@@ -76,6 +76,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 /* assumes there are a total of seven items */
 @media (min-width: 768px) {
     .navbar-main .nav {
+        height: 50px;
+    }
+    .navbar-main .nav {
         width: 90%;
     }
     .navbar-main .nav > li {
@@ -195,7 +198,6 @@ ul.in-news small {
 
 /* footer */
 .footer {
-    background: #545059 url(footer_shadow.png) center top no-repeat;
     margin-top: 40px;
 }
 .footer-text p {
@@ -293,7 +295,7 @@ ul.in-news small {
 .list-group-item-text {
     line-height: 1.4;
 }
-.services .list-group img + p {
+.resource img + p {
     margin-top: 10px;
 }
 

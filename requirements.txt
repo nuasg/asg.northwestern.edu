@@ -1,3 +1,15 @@
 Django==1.6.2
+South==0.8.4
+#dj-static==0.0.6
+# Install directly from github repo:
+git+https://github.com/kennethreitz/dj-static.git
+django-recurrence==1.0.1
+django-tinymce==1.5.2
 psycopg2==2.5.2
+pystache==0.5.3
+python-dateutil==2.2
+pytz==2014.2
+six==1.6.1
+static==1.0.2
+static3==0.5
 wsgiref==0.1.2
