@@ -1,12 +1,112 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load util %}
 
 {% block title %}Calendar | Associated Student Government{% endblock title %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'fullcalendar/fullcalendar.css' %}">
+<style>
+.fc-event:hover,
+.fc-event:focus {
+  color: white;
+}
+.fc-event {
+  border: none;
+  padding: 1px;
+}
+.calendar .fc-event {
+  font-size: 14px;
+}
+h1 {
+  margin-top: 0;
+}
+
+{% for calendar in calendars %}
+.cal-{{ calendar.name|slugify }},
+.cal-{{ calendar.name|slugify }}:active {
+  background-color: {{ calendar.event_color }};
+}
+.cal-{{ calendar.name|slugify }}:hover,
+.cal-{{ calendar.name|slugify }}:focus {
+  background-color: {{ calendar.event_color|darken }};
+}
+.toggle-{{ calendar.name|slugify }}.on {
+  color: white;
+  background-color: {{ calendar.event_color }};
+}
+{% endfor%}
+.loading {
+  text-align: center;
+}
+</style>
+{% endblock head %}
 
 {% block content %}
 <div class="row">
   <div class="col-md-12">
-    <h1>Calendar</h1>
+    <div class="pull-right">
+      {% for calendar in calendars %}
+      <div class="btn btn-default on toggle-{{ calendar.name|slugify }}">
+        {{ calendar.name }}
+      </div>
+      {% endfor %}
+    </div>
+    <h1>Calendar <span class="loading">(loading...)</span></h1>
+    <div class="calendar">
+    </div>
   </div>
 </div>
 {% endblock content %}
+
+{% block scripts %}
+<script src="{% static 'fullcalendar/fullcalendar.min.js' %}"></script>
+<script src="{% static 'fullcalendar/gcal.js' %}"></script>
+<script>
+var calendar = $('.calendar').fullCalendar({
+  eventSources: [
+  {% for calendar in calendars %}
+    {
+      url: '{{ calendar.xml_feed_url }}',
+      className: 'cal-{{ calendar.name|slugify }}'
+    },
+  {% endfor %}
+  ],
+  eventClick: function(event) {
+    window.open(event.url, 'gcalevent', 'width=400,height=300');
+    return false;
+  },
+  loading: function(is_loading) {
+    if (is_loading) {
+      $('.loading').show();
+    } else {
+      $('.loading').hide();
+    }
+  }
+});
+
+var display = {
+{% for calendar in calendars %}
+  '{{ calendar.name|slugify }}': true,
+{% endfor %}
+};
+
+{% for calendar in calendars %}
+$('.toggle-{{ calendar.name|slugify }}').click(function() {
+  if (display['{{ calendar.name|slugify }}']) {
+    calendar.fullCalendar('removeEventSource', '{{ calendar.xml_feed_url }}');
+    /* $('.cal-{{ calendar.name|slugify }}').remove(); */
+  } else {
+    calendar.fullCalendar('addEventSource', {
+      url: '{{ calendar.xml_feed_url }}',
+      className: 'cal-{{ calendar.name|slugify }}'
+    });
+    /* calendar.fullCalendar('rerenderEvents'); */
+  }
+  $(this).toggleClass('on');
+  display['{{ calendar.name|slugify }}'] = !display['{{ calendar.name|slugify }}'];
+});
+{% endfor %}
+
+</script>
+{% endblock scripts %}

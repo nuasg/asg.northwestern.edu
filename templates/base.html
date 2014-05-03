@@ -16,19 +16,8 @@
   </style>
   <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
-{% block head %}
-  <script type="text/javascript" src="{% static 'js/responsiveslides.min.js' %}"></script>
-  <script>
-    $(function() {
-      $('.rslides').responsiveSlides({
-        auto: true,
-        speed: 800,
-        pager: true,
-        pause: true,
-      });
-    });
-  </script>
-{% endblock head %}
+  {% block head %}
+  {% endblock head %}
 </head>
 <body>
   <div class="container">
@@ -92,132 +81,6 @@
     </div>
 
 {% block content %}
-    <div class="row">
-      <div class="col-md-12">
-        <div class="alert alert-info">Applications open for Cabinet Positions! <a href="https://docs.google.com/a/u.northwestern.edu/forms/d/1H9F4Rd0nOTS2oh2f4s1uuuuvWxXkhk9w2xcr3Ae5384/viewform" target="_blank">Learn more and apply &raquo;</a></div>
-      </div>
-    
-    </div>
-
-
-    <div class="row">
-      <div class="col-md-5 col-md-push-7 announcements">
-        <h3>Announcements</h3>
-        <ul class="no-bullets">
-          <li>
-          <p><a href="#">Register for RedesigNU Hackathon today!</a></p>
-          <small>24-hour Hackathon on April 25-26 will award $2,000 for best new app/service for Northwestern students. CAESAR &amp; Wildcat Connection APIs will be made available for the first time.</small>
-          </li>
-          <li>
-          <p><a href="#">Nominate your favorite Faculty & Staff for the ASG Honor Roll</a></p>
-          <small>Every year, ASG asks students to nominate faculty &amp; administrators for the annual Honor Roll.<br> 
-          <a href="http://northwestern.collegiatelink.net/form/start/44105" target="_blank">Nominate here for the 2014 Honor Roll!</a><br>
-          The form closes on April 18.</small>
-          </li>
-        </ul>
-        <p><a class="btn btn-default" href="#">Older announcements &raquo;</a></p>
-      </div>
-
-      <div class="col-md-7 col-md-pull-5 homepage-slideshow">
-        <ul class="rslides">
-          <li>
-          <img src="http://dailynorthwestern.com/wp-content/uploads/2014/04/DebateCompWeb.jpg" alt="...">
-          <p class="caption">Presidential candidates face off in debates</p>
-          </li>
-          <li>
-          <img src="http://dailynorthwestern.com/wp-content/uploads/2014/01/BIKESTORAGE_InaYang-780x520.jpg" alt="...">
-          <p class="caption">Bike storage problems</p>
-          </li>
-          <li>
-          <img src="http://dailynorthwestern.com/wp-content/uploads/2014/01/UNION_AnnabelEdwards-780x520.jpg" alt="...">
-          <p class="caption">Students react to Obama's State of the Union</p>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-4 col-md-3">
-        <h3>Upcoming events</h3>
-        <ul class="events">
-          <li>
-            <a href="#">ASG Cabinet confirmations</a><br>
-            <small>7pm, Wed April 2, Northwestern Room</small>
-          </li>
-          <li>
-            <a href="#">ASG President &amp; VP elections</a><br>
-            <small>12am&ndash;7pm, Wed April 9</small>
-          </li>
-          <li>
-            <a href="#">New President and VP induction</a><br>
-            <small>7pm, Wed April 16, Northwestern Room</small>
-          </li>
-          <li>
-            <a href="#">Transition presentations</a><br>
-            <small>8pm, Wed April 16</small>
-          </li>
-          <li>
-            <a href="#">Transition ceremony</a><br>
-            <small>2pm, Fri April 18</small>
-          </li>
-        </ul>
-        <p><a class="btn btn-default" href="#">Other events &raquo;</a></p>
-      </div>
-
-      <div class="col-sm-4 col-md-4">
-        <h3>Recent legislation</h3>
-        <ul class="legislation">
-          <li>
-            <a href="#" title="Pending">SR1314-10: Oops!...They Did It Again</a><br>
-            <small>Pending vote on April 9, 2014</small>
-          </li>
-          <li>
-            <a href="#" title="Passed April 2, 2014">Changes to the ASG code</a><br>
-            <small>Passed April 2, 2014</small>
-          </li>
-          <li>
-            <a href="#" title="Passed April 2, 2014">SL1314-22: Revamping the FMO Spring Concert</a><br>
-            <small>Passed April 2, 2014</small>
-          </li>
-          <li>
-            <a href="#" title="Passed April 2, 2014">SL1314-20: More Money for Ani</a><br>
-            <small>Passed March 12, 2014</small>
-          </li>
-          <li>
-            <a href="#" title="Passed April 2, 2014">SL1314-16: More Cupcakes for Alex</a><br>
-            <small>Passed March 12, 2014</small>
-          </li>
-        </ul>
-        <p><a class="btn btn-default" href="#">Browse all legislation &raquo;</a></p>
-      </div>
-
-      <div class="col-sm-4 col-md-5">
-        <h3>ASG in the News</h3>
-        <ul class="in-news">
-          <li>
-            <a href="http://dailynorthwestern.com/2014/04/09/campus/watson-zorn-win-2014-asg-election/" target="_blank">Watson, Zorn win 2014 ASG election</a><br>
-            <small>The Daily Northwestern - April 9, 2014</small>
-          </li>
-          <li>
-            <a href="http://www.northbynorthwestern.com/story/5-questions-with-julia-watson-and-erik-zorn/" target="_blank">5 Questions with Julia Watson and Erik Zorn</a><br>
-            <small>North by Northwestern - April 9, 2014</small>
-          </li>
-          <li>
-            <a href="https://issuu.com/asgnu/docs/asg_happenings_2012-2013?e=0" target="_blank">Check out ASG's Happenings 2012-13!</a><br>
-            <small>Issuu - June 30, 2013</small>
-          </li>
-          <li>
-            <a href="http://www.northbynorthwestern.com/story/asg-closes-quarter-with-safc-elections-reforms-dis/" target="_blank">ASG closes quarter with SAFC elections, reforms discussion</a><br>
-            <small>North by Northwestern - June 6, 2013</small>
-          </li>
-          <li>
-            <a href="http://dailynorthwestern.com/2013/06/06/campus/senate-votes-to-consider-major-representation-changes-over-summer/" target="_blank">Senate votes to consider major representation changes over summer</a><br>
-            <small>The Daily Northwestern - June 6, 2013</small>
-          </li>
-        </ul>
-        <p><a class="btn btn-default" href="#">Previous articles &raquo;</a></p>
-      </div>
-    </div>
 {% endblock content %}
 
     <div class="row footer">
@@ -241,7 +104,9 @@
       </div>
     </div>
   </div>
+
 {% block scripts %}
 {% endblock scripts %}
+
 </body>
 </html>

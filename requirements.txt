@@ -4,6 +4,8 @@ South==0.8.4
 #dj-static==0.0.6
 # Install directly from github repo:
 git+https://github.com/kennethreitz/dj-static.git
+# Django color field
+git+https://github.com/jaredly/django-colorfield.git
 django-recurrence==1.0.1
 django-tinymce==1.5.2
 psycopg2==2.5.2

@@ -34,6 +34,7 @@ def for_groups(request):
                 context_instance=RequestContext(request))
 
 def calendar(request):
+    calendars = GoogleCalendar.objects.filter(is_public=True)
     return render_to_response('calendar.html', locals())
 
 announcements_per_page = 10

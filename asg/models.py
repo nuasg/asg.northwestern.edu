@@ -1,6 +1,7 @@
 import tinymce.models as tmodels
 from django.db import models
 from django.contrib.auth.models import User
+from colorfield.fields import ColorField
 
 
 class Alert(models.Model):
@@ -140,6 +141,18 @@ class NewsLink(models.Model):
         ordering = ['-date_published']
 
 
+# Events from these calendars are shown on the Events page
+# unless is_public is False
+class GoogleCalendar(models.Model):
+    name = models.CharField(max_length=255)
+    xml_feed_url = models.URLField()
+    is_public = models.BooleanField(default=False)
+    is_office_hours = models.BooleanField(default=False)
+    event_color = ColorField(blank=True)
+
+    def __unicode__(self):
+        return self.name
+
 
 class Event(models.Model):
     name = models.CharField(max_length=255)
@@ -147,7 +160,7 @@ class Event(models.Model):
     date = models.DateTimeField()
     location = models.CharField(max_length=455, blank=True)
     description = models.TextField(blank=True)
-    calendar = models.ForeignKey('Calendar', null=True, blank=True)
+    calendar = models.ForeignKey('GoogleCalendar', null=True, blank=True)
     
     # Exec board members usually have office hours. Avoiding
     # a separate 'Position' model for simplicity. 
@@ -169,14 +182,6 @@ class Event(models.Model):
         day = self.date.strftime('%d').lstrip('0')
         return self.date.strftime('{}{}, %a %b {}'.format(time, ampm, day)) + location_str
 
-
-# One of several google calendars with events
-# that should be displayed on the calendar page
-class Calendar(models.Model):
-    name = models.CharField(max_length=100)
-
-    def __unicode__(self):
-        return self.caption
 
 class HomepageSlide(models.Model):
     image = models.ImageField(upload_to='homepage_slides')
