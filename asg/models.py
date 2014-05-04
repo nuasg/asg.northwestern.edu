@@ -236,3 +236,8 @@ class Resource(models.Model):
         verbose_name_plural = 'Resources and Services'
 
 
+class Upload(models.Model):
+    file = models.FileField(upload_to='uploads')
+
+    def __unicode__(self):
+        return unicode(self.file)

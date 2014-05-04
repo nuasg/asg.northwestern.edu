@@ -10,6 +10,7 @@ def home(request):
     bills = Legislation.objects.all()[:5]
     news_links = NewsLink.objects.order_by('-date_published')[:5]
     slides = HomepageSlide.objects.filter(active=True)
+    calendars = GoogleCalendar.objects.filter(is_public=True, is_office_hours=False)
     return render_to_response('home.html', locals(),
                 context_instance=RequestContext(request))
 
@@ -48,6 +49,7 @@ def list_announcements(request):
     return render_to_response('list_announcements.html', locals())
 
 def announcement(request, slug):
+    from_homepage = 'from_homepage' in request.GET
     announcement = get_object_or_404(Announcement, slug=slug)
     return render_to_response('announcement.html', locals())
 

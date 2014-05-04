@@ -5,7 +5,11 @@
 {% block content %}
 <div class="row">
   <div class="col-md-12">
+    {% if from_homepage %}
+    <p><a class="btn btn-default" href="/">&laquo; Back to homepage</a></p>
+    {% else %}
     <p><a class="btn btn-default" href="/announcements/">&laquo; All announcements</a></p>
+    {% endif %}
     <h1>{{ announcement.title }}</h1>
     <p class="text-muted">Posted {{ announcement.date_posted|date:"f a \o\n F d, Y" }}</p>
     {{ announcement.message|safe }}
