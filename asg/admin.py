@@ -11,6 +11,9 @@ class AnnouncementAdmin(admin.ModelAdmin):
 class EventAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
+class GoogleCalendarAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('name',)}
+
 class PersonAdmin(admin.ModelAdmin):
     radio_fields = {
         'website_role': admin.VERTICAL,
@@ -23,6 +26,11 @@ class ResourceAdmin(admin.ModelAdmin):
         'users': admin.VERTICAL,
     }
 
+class LegislationAdmin(admin.ModelAdmin):
+    radio_fields = {
+        'status': admin.VERTICAL,
+    }
+
 class HomepageSlideAdmin(admin.ModelAdmin):
     list_display = ('caption', 'order', 'active')
 
@@ -33,9 +41,9 @@ admin.site.register(Person, PersonAdmin)
 admin.site.register(Position)
 admin.site.register(Committee)
 admin.site.register(Project)
-admin.site.register(Legislation)
+admin.site.register(Legislation, LegislationAdmin)
 admin.site.register(NewsLink)
-admin.site.register(GoogleCalendar)
+admin.site.register(GoogleCalendar, GoogleCalendarAdmin)
 admin.site.register(Event, EventAdmin)
 admin.site.register(HomepageSlide, HomepageSlideAdmin)
 admin.site.register(Page, PageAdmin)

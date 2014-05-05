@@ -44,16 +44,8 @@
         <h3>Upcoming events</h3>
         <ul class="events">
           <p class="loading">Loading...</p>
-          {% comment %}
-          {% for event in events %}
-          <li>
-            <a href="/events/{{ event.slug }}">{{ event.name }}</a><br>
-            <small>{{ event.list_render }}</small>
-          </li>
-          {% endfor %}
-          {% endcomment %}
         </ul>
-        <p><a class="btn btn-default" href="/calendar/">Other events &raquo;</a></p>
+        <p><a class="btn btn-default" href="/calendar/">All events &raquo;</a></p>
       </div>
 
       <div class="col-sm-4 col-md-4">
@@ -95,43 +87,104 @@ $('.rslides').responsiveSlides({
 
 var events = {
 {% for calendar in calendars %}
-  '{{ calendar.name|slugify }}': null,
+  '{{ calendar.slug }}': null,
 {% endfor %}
 };
-var calendarNames = [
+var calendarIds = {
 {% for calendar in calendars %}
-  '{{ calendar.name|slugify }}',
+  '{{ calendar.slug }}': '{{ calendar.calendar_id }}',
 {% endfor %}
-];
-var eventSources = [
-{% for calendar in calendars %}
-'{{ calendar.xml_feed_url }},
-{% endfor %}
-];
+};
 
 var now = new Date();
 var currentTime = now.toISOString();
 
-var compareEvent = function(a, b) {
-  // Compare two events based on their event.start.dateTime properties
+$('.events').on('click', '.event-link', function() {
+  window.open($(this).data('url'), 'gcalevent', 'width=400,height=300');
+  return false;
+});
 
+var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+var renderEvent = function(event) {
+  // Assemble the date/location part
+  var d = new Date(Date.parse(event.start.dateTime));
+  var hours = d.getHours();
+  if (hours > 12) {
+    hours -= 12;
+    var ampm = 'pm'
+  } else {
+    var ampm = 'am'
+  }
+  var desc = hours.toString() ;
+  if (d.getMinutes() !== 0) {
+    desc += ':' + d.getMinutes().toString();
+  }
+  if (event.location !== undefined) {
+    var location = ', ' + event.location;
+  } else {
+    var location = '';
+  }
+  desc += ampm + ' ' + days[d.getDay()] + ' ' + months[d.getMonth()] +
+          ' ' + d.getDate().toString() + location;
+
+  // Add it to the DOM
+  $('.events').append('<li><a href="#" class="event-link" data-url="' + 
+    event.htmlLink + '">' + event.summary + '</a><br><small>' +
+     desc + '</small></li>');
+};
+
+var compareEvents = function(a, b) {
+  // Compare two events based on their start.dateTime properties
+  var aTime = Date.parse(a.start.dateTime);
+  var bTime = Date.parse(b.start.dateTime);
+  if (aTime < bTime) {
+    return -1;
+  } else if (aTime === bTime) {
+    return 0;
+  } else {
+    return 1;
+  }
 }
 
 var processEvents = function() {
   var allEvents = [];
-  for (var i = 0; i < eventSources.length; i++) {
-    if (events[eventSources[i]] === null) {
+  for (var name in events) {
+    if (events[name] === null) {
       return;
     }
-    allEvents = allEvents.concat(events[eventSources[i]].items);
+    allEvents = allEvents.concat(events[name].items);
   }
 
   // Get the five soonest upcoming events
+  var upcomingEvents = allEvents.sort(compareEvents).slice(0, 5);
 
-
-  // Render the events
-
+  // Display the events
+  $('.loading').remove();
+  upcomingEvents.map(renderEvent);
 };
+
+var getEventsFor = function(calendarName, params) {
+  $.getJSON(url, params, function(data) {
+    events[calendarName] = data;
+    processEvents();
+  });
+};
+
+// Get events for each calendar
+for (var name in calendarIds) {
+  var url = 'https://www.googleapis.com/calendar/v3/calendars/'
+              + calendarIds[name] + '/events';
+  var params = {
+    maxResults: 5,
+    orderBy: 'startTime',
+    singleEvents: true,
+    timeMin: currentTime,
+    key: 'AIzaSyBYQtPZrwEAmgohdEwuuyXwrRCu_VD9Slo'
+  };
+  getEventsFor(name, params);
+}
+
 
 </script>
 {% endblock scripts %}

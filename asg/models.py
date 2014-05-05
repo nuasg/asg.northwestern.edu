@@ -1,3 +1,5 @@
+import urllib
+import urlparse
 import tinymce.models as tmodels
 from django.db import models
 from django.contrib.auth.models import User
@@ -111,7 +113,7 @@ LEGISLATION_STATUSES = [
 class Legislation(models.Model):
     code = models.CharField(max_length=10)
     name = models.CharField(max_length=255)
-    status = models.CharField(max_length=4, choices=LEGISLATION_STATUSES)
+    status = models.CharField(max_length=2, choices=LEGISLATION_STATUSES, blank=True)
     status_date = models.DateField(blank=True)
     link = models.URLField(blank=True)
 
@@ -145,13 +147,21 @@ class NewsLink(models.Model):
 # unless is_public is False
 class GoogleCalendar(models.Model):
     name = models.CharField(max_length=255)
+    slug = models.SlugField()
     xml_feed_url = models.URLField()
+    calendar_id = models.TextField(editable=False)
     is_public = models.BooleanField(default=False)
     is_office_hours = models.BooleanField(default=False)
     event_color = ColorField(blank=True)
 
     def __unicode__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        # Extract Google Calendar ID from XML feed URL
+        path = urlparse.urlparse(urllib.unquote(self.xml_feed_url)).path
+        self.calendar_id = path.split('/')[3]
+        super(GoogleCalendar, self).save(*args, **kwargs)
 
 
 class Event(models.Model):

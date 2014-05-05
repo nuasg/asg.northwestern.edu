@@ -23,15 +23,15 @@ h1 {
 }
 
 {% for calendar in calendars %}
-.cal-{{ calendar.name|slugify }},
-.cal-{{ calendar.name|slugify }}:active {
+.cal-{{ calendar.slug }},
+.cal-{{ calendar.slug }}:active {
   background-color: {{ calendar.event_color }};
 }
-.cal-{{ calendar.name|slugify }}:hover,
-.cal-{{ calendar.name|slugify }}:focus {
+.cal-{{ calendar.slug }}:hover,
+.cal-{{ calendar.slug }}:focus {
   background-color: {{ calendar.event_color|darken }};
 }
-.toggle-{{ calendar.name|slugify }}.on {
+.toggle-{{ calendar.slug }}.on {
   color: white;
   background-color: {{ calendar.event_color }};
 }
@@ -47,7 +47,7 @@ h1 {
   <div class="col-md-12">
     <div class="pull-right">
       {% for calendar in calendars %}
-      <div class="btn btn-default on toggle-{{ calendar.name|slugify }}">
+      <div class="btn btn-default on toggle-{{ calendar.slug }}">
         {{ calendar.name }}
       </div>
       {% endfor %}
@@ -68,7 +68,7 @@ var calendar = $('.calendar').fullCalendar({
   {% for calendar in calendars %}
     {
       url: '{{ calendar.xml_feed_url }}',
-      className: 'cal-{{ calendar.name|slugify }}'
+      className: 'cal-{{ calendar.slug }}'
     },
   {% endfor %}
   ],
@@ -87,24 +87,24 @@ var calendar = $('.calendar').fullCalendar({
 
 var display = {
 {% for calendar in calendars %}
-  '{{ calendar.name|slugify }}': true,
+  '{{ calendar.slug }}': true,
 {% endfor %}
 };
 
 {% for calendar in calendars %}
-$('.toggle-{{ calendar.name|slugify }}').click(function() {
-  if (display['{{ calendar.name|slugify }}']) {
+$('.toggle-{{ calendar.slug }}').click(function() {
+  if (display['{{ calendar.slug }}']) {
     calendar.fullCalendar('removeEventSource', '{{ calendar.xml_feed_url }}');
-    /* $('.cal-{{ calendar.name|slugify }}').remove(); */
+    /* $('.cal-{{ calendar.slug }}').remove(); */
   } else {
     calendar.fullCalendar('addEventSource', {
       url: '{{ calendar.xml_feed_url }}',
-      className: 'cal-{{ calendar.name|slugify }}'
+      className: 'cal-{{ calendar.slug }}'
     });
     /* calendar.fullCalendar('rerenderEvents'); */
   }
   $(this).toggleClass('on');
-  display['{{ calendar.name|slugify }}'] = !display['{{ calendar.name|slugify }}'];
+  display['{{ calendar.slug }}'] = !display['{{ calendar.slug }}'];
 });
 {% endfor %}
 
