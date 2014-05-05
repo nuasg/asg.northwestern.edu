@@ -2,14 +2,15 @@
 {% load staticfiles %}
 {% block title %}Northwestern Associated Student Government{% endblock title %}
 {% block content %}
+    {% if alerts.count > 0 %}
     <div class="row">
       <div class="col-md-12">
         {% for alert in alerts %}
-        <div class="alert alert-info">{{ alert.html|safe }}</div>
+        <div class="alert alert-info">{{ alert.message|safe }}</div>
         {% endfor %}
       </div>
     </div>
-
+    {% endif %}
 
     <div class="row">
       <div class="col-md-5 col-md-push-7 announcements">
@@ -75,6 +76,7 @@
       </div>
     </div>
 {% endblock content %}
+
 {% block scripts %}
 <script type="text/javascript" src="{% static 'js/responsiveslides.min.js' %}"></script>
 <script>
