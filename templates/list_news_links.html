@@ -2,12 +2,20 @@
 
 {% block title %}ASG in the News | Associated Student Government{% endblock title %}
 
+{% block head %}
+<style>
+.lead {
+  margin-bottom: 0;
+}
+</style>
+{% endblock head %}
+
 {% block content %}
 <div class="row">
   <div class="col-md-9">
     <h1>ASG in the News</h1>
     {% for news_link in news_links %}
-    <h3><a href="{{ news_link.link }}" target="_blank">{{ news_link.name }}</a></h3>
+    <p class="lead"><a href="{{ news_link.link }}" target="_blank">{{ news_link.name }}</a></p>
     <p class="text-muted">Published {{ news_link.date_published|date:'F d, Y' }} by {{ news_link.get_source_display }}</p>
     {% endfor %}
   </div>

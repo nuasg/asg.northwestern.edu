@@ -13,7 +13,7 @@
     {% endif %}
 
     <div class="row">
-      <div class="col-md-5 col-md-push-7 announcements">
+      <div class="col-md-5 col-md-push-7 col-lg-6 col-lg-push-6 announcements">
         <h3>Announcements</h3>
         <ul class="no-bullets">
           {% for announcement in announcements %}
@@ -26,7 +26,7 @@
         <p><a class="btn btn-default" href="/announcements/">Older announcements &raquo;</a></p>
       </div>
 
-      <div class="col-md-7 col-md-pull-5 homepage-slideshow">
+      <div class="col-md-7 col-md-pull-5 col-lg-6 col-lg-pull-6 homepage-slideshow">
         <ul class="rslides">
           {% for slide in slides %}
           <li>
@@ -131,9 +131,10 @@ var renderEvent = function(event) {
           ' ' + d.getDate().toString() + location;
 
   // Add it to the DOM
-  $('.events').append('<li><a href="#" class="event-link" data-url="' + 
+  $('.events').append('<li><a href="' + event.htmlLink + 
+    '" target="_blank" class="event-link" data-url="' + 
     event.htmlLink + '">' + event.summary + '</a><br><small>' +
-     desc + '</small></li>');
+    desc + '</small></li>');
 };
 
 var compareEvents = function(a, b) {

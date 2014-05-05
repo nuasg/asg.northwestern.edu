@@ -2,12 +2,20 @@
 
 {% block title %}Legislation | Associated Student Government{% endblock title %}
 
+{% block head %}
+<style>
+.lead {
+  margin-bottom: 0;
+}
+</style>
+{% endblock head %}
+
 {% block content %}
 <div class="row">
   <div class="col-md-9">
     <h1>Legislation</h1>
     {% for bill in bills %}
-    <h3><a href="{{ bill.link }}" target="_blank">{{ bill.code }}: {{ bill.name }}</a></h3>
+    <p class="lead"><a href="{{ bill.link }}" target="_blank">{{ bill.code }}: {{ bill.name }}</a></p>
     <p class="text-muted">{{ bill.get_status_display }}{% if bill.status_date %} on {{ bill.status_date}}{% endif %}</p>
     {% endfor %}
   </div>

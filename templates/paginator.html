@@ -1,11 +1,11 @@
 <div class="row">
   <div class="col-md-12">
     <ul class="pagination">
-      <li {% if page == 1 %}class="disabled"{% endif %}><a href="/announcements/?page=1">&laquo;</a></li>
+      <li {% if page == 1 %}class="disabled"{% endif %}><a href="{{ url }}?page=1">&laquo;</a></li>
       {% for p in pages %}
-      <li {% if p == page %}class="active"{% endif %}><a href="/announcements/?page={{ p }}">{{ p }}</a></li>
+      <li {% if p == page %}class="active"{% endif %}><a href="{{ url }}?page={{ p }}">{{ p }}</a></li>
       {% endfor %}
-      <li {% if page == last_page %}class="disabled"{% endif %}><a href="/announcements/?page={{ last_page }}">&raquo;</a></li>
+      <li {% if page == last_page %}class="disabled"{% endif %}><a href="{{ url }}?page={{ last_page }}">&raquo;</a></li>
     </ul>
   </div>
 </div>

@@ -9,8 +9,6 @@ def home(request):
     current_time = datetime.datetime.now()
     alerts = Alert.objects.filter(start_time__lte=current_time,
                                   end_time__gt=current_time)
-    print Alert.objects.all()
-    print alerts
     announcements = Announcement.objects.order_by('-date_posted')[:2]
     bills = Legislation.objects.all()[:5]
     news_links = NewsLink.objects.order_by('-date_published')[:5]
