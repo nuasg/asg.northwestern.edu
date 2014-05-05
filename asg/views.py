@@ -53,6 +53,26 @@ def list_announcements(request):
     announcements = p.page(page).object_list
     return render_to_response('list_announcements.html', locals())
 
+legislation_per_page = 10
+def list_legislation(request):
+    all_legislation = Legislation.objects.order_by('-code')
+    p = Paginator(all_legislation, legislation_per_page)
+    last_page = p.num_pages
+    pages = xrange(1, last_page+1)
+    page = int(request.GET.get('page', 1))
+    bills = p.page(page).object_list
+    return render_to_response('list_legislation.html', locals())
+
+articles_per_page = 10
+def list_articles(request):
+    all_articles = NewsLink.objects.order_by('-date_published')
+    p = Paginator(all_articles, articles_per_page)
+    last_page = p.num_pages
+    pages = xrange(1, last_page+1)
+    page = int(request.GET.get('page', 1))
+    news_links = p.page(page).object_list
+    return render_to_response('list_articles.html', locals())
+
 def announcement(request, slug):
     from_homepage = 'from_homepage' in request.GET
     announcement = get_object_or_404(Announcement, slug=slug)

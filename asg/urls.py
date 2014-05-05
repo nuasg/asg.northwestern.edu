@@ -13,6 +13,8 @@ urlpatterns = patterns('asg.views',
     url(r'^calendar/', 'calendar'),
     url(r'^announcements/$', 'list_announcements'),
     url(r'^announcements/(?P<slug>[\w-]+)/$', 'announcement'),
+    url(r'^legislation/$', 'list_legislation'),
+    url(r'^in-the-news/$', 'list_articles'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^(?P<page_slug>[\w-]+)/$', 'page'),
 )
