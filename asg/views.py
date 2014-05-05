@@ -40,7 +40,13 @@ def for_groups(request):
                 context_instance=RequestContext(request))
 
 def calendar(request):
+    page_name = 'Calendar'
     calendars = GoogleCalendar.objects.filter(is_public=True)
+    return render_to_response('calendar.html', locals())
+
+def office_hours(request):
+    page_name = 'Office Hours'
+    calendars = GoogleCalendar.objects.filter(is_office_hours=True)
     return render_to_response('calendar.html', locals())
 
 announcements_per_page = 10
@@ -63,15 +69,15 @@ def list_legislation(request):
     bills = p.page(page).object_list
     return render_to_response('list_legislation.html', locals())
 
-articles_per_page = 10
-def list_articles(request):
-    all_articles = NewsLink.objects.order_by('-date_published')
-    p = Paginator(all_articles, articles_per_page)
+news_links_per_page = 10
+def list_news_links(request):
+    all_news_links = NewsLink.objects.order_by('-date_published')
+    p = Paginator(all_news_links, news_links_per_page)
     last_page = p.num_pages
     pages = xrange(1, last_page+1)
     page = int(request.GET.get('page', 1))
     news_links = p.page(page).object_list
-    return render_to_response('list_articles.html', locals())
+    return render_to_response('list_news_links.html', locals())
 
 def announcement(request, slug):
     from_homepage = 'from_homepage' in request.GET

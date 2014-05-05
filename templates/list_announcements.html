@@ -5,7 +5,6 @@
 {% block content %}
 <div class="row">
   <div class="col-md-9">
-    <p><a class="btn btn-default" href="/">&laquo; Back to homepage</a></p>
     <h1>Announcements</h1>
     {% for announcement in announcements %}
       <h3><a href="/announcements/{{ announcement.slug }}">{{ announcement.title }}</a></h3>

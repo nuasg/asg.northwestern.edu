@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% load util %}
 
-{% block title %}Calendar | Associated Student Government{% endblock title %}
+{% block title %}{{ page_name }} | Associated Student Government{% endblock title %}
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'fullcalendar/fullcalendar.css' %}">
@@ -52,7 +52,7 @@ h1 {
       </div>
       {% endfor %}
     </div>
-    <h1>Calendar <span class="loading">(loading...)</span></h1>
+    <h1>{{ page_name }} <span class="loading">(loading...)</span></h1>
     <div class="calendar">
     </div>
   </div>
