@@ -1,4 +1,4 @@
-import datetime
+from django.utils import timezone
 from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
@@ -6,7 +6,7 @@ from django.template import RequestContext
 from models import *
 
 def home(request):
-    current_time = datetime.datetime.now()
+    current_time = timezone.now()
     alerts = Alert.objects.filter(start_time__lte=current_time,
                                   end_time__gt=current_time)
     announcements = Announcement.objects.order_by('-date_posted')[:2]
