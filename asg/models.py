@@ -34,6 +34,7 @@ WEBSITE_ROLES = [
     ('SEN', 'Senator')
 ]
 class Person(models.Model):
+    user = models.ForeignKey(User, null=True, blank=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField(max_length=254, blank=True)
@@ -43,7 +44,6 @@ class Person(models.Model):
     photo = models.FileField(upload_to='profile_photos', blank=True)
 
     website_role = models.CharField(max_length=4, choices=WEBSITE_ROLES, blank=True)
-    user = models.ForeignKey(User, null=True, blank=True)
 
     # Person will have projects, committees from
     # fields in those models
