@@ -8,9 +8,6 @@ class PageAdmin(admin.ModelAdmin):
 class AnnouncementAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
 
-class EventAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('name',)}
-
 class GoogleCalendarAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
@@ -44,7 +41,6 @@ admin.site.register(Project)
 admin.site.register(Legislation, LegislationAdmin)
 admin.site.register(NewsLink)
 admin.site.register(GoogleCalendar, GoogleCalendarAdmin)
-admin.site.register(Event, EventAdmin)
 admin.site.register(HomepageSlide, HomepageSlideAdmin)
 admin.site.register(Page, PageAdmin)
 admin.site.register(Resource, ResourceAdmin)

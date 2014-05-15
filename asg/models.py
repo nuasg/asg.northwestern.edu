@@ -35,13 +35,15 @@ WEBSITE_ROLES = [
 ]
 class Person(models.Model):
     user = models.ForeignKey(User, null=True, blank=True)
+    netid = models.CharField(max_length=6, blank=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField(max_length=254, blank=True)
     date_joined = models.DateField(blank=True, null=True)
     positions = models.ManyToManyField('Position', blank=True)
     bio = models.TextField(blank=True)
-    photo = models.FileField(upload_to='profile_photos', blank=True)
+    photo = models.ImageField(upload_to='profile_photos', blank=True)
+    active = models.BooleanField(default=True)
 
     website_role = models.CharField(max_length=4, choices=WEBSITE_ROLES, blank=True)
 
@@ -151,6 +153,8 @@ class GoogleCalendar(models.Model):
     xml_feed_url = models.URLField()
     calendar_id = models.TextField(editable=False)
     is_public = models.BooleanField(default=False)
+    display_by_default = models.BooleanField(default=False)
+    show_on_homepage = models.BooleanField(default=False)
     is_office_hours = models.BooleanField(default=False)
     event_color = ColorField(blank=True)
 
@@ -162,36 +166,6 @@ class GoogleCalendar(models.Model):
         path = urlparse.urlparse(urllib.unquote(self.xml_feed_url)).path
         self.calendar_id = path.split('/')[3]
         super(GoogleCalendar, self).save(*args, **kwargs)
-
-
-class Event(models.Model):
-    name = models.CharField(max_length=255)
-    slug = models.SlugField()
-    date = models.DateTimeField()
-    location = models.CharField(max_length=455, blank=True)
-    description = models.TextField(blank=True)
-    calendar = models.ForeignKey('GoogleCalendar', null=True, blank=True)
-    
-    # Exec board members usually have office hours. Avoiding
-    # a separate 'Position' model for simplicity. 
-    person = models.ForeignKey('Person', related_name='office_hours', null=True, blank=True)
-
-    # Optional associations
-    project = models.ForeignKey('Project', null=True, blank=True)
-    committee = models.ForeignKey('Committee', null=True, blank=True)
-
-    def __unicode__(self):
-        return '%s at %s' % (self.name, self.list_render())
-
-    def list_render(self):
-        location_str = ''
-        if self.location:
-            location_str = ', ' + self.location
-        time = self.date.strftime('%I').lstrip('0')
-        ampm = self.date.strftime('%p').lower()
-        day = self.date.strftime('%d').lstrip('0')
-        return self.date.strftime('{}{}, %a %b {}'.format(time, ampm, day)) + location_str
-
 
 class HomepageSlide(models.Model):
     image = models.ImageField(upload_to='homepage_slides')

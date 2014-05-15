@@ -82,3 +82,13 @@ def announcement(request, slug):
     announcement = get_object_or_404(Announcement, slug=slug)
     return render_to_response('announcement.html', locals())
 
+def cabinet(request):
+    return render_to_response('cabinet.html', locals())
+
+def senators(request):
+    return render_to_response('senators.html', locals())
+
+def projects(request):
+    return render_to_response('projects.html', locals())
+
+
