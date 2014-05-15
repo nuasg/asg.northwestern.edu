@@ -13,7 +13,7 @@ def home(request):
     bills = Legislation.objects.all()[:5]
     news_links = NewsLink.objects.order_by('-date_published')[:5]
     slides = HomepageSlide.objects.filter(active=True)
-    calendars = GoogleCalendar.objects.filter(is_public=True, is_office_hours=False)
+    calendars = GoogleCalendar.objects.filter(show_on_homepage=True)
     return render_to_response('home.html', locals(),
                 context_instance=RequestContext(request))
 
@@ -39,7 +39,7 @@ def for_groups(request):
 
 def calendar(request):
     page_name = 'Calendar'
-    calendars = GoogleCalendar.objects.filter(is_public=True)
+    calendars = GoogleCalendar.objects.filter(display_on_calendar_page=True)
     return render_to_response('calendar.html', locals())
 
 def office_hours(request):
@@ -82,6 +82,11 @@ def announcement(request, slug):
     announcement = get_object_or_404(Announcement, slug=slug)
     return render_to_response('announcement.html', locals())
 
+def contact(request):
+    exec_board_positions = Position.objects.filter(on_exec_board=True)
+    senate_leadership_positions = Position.objects.filter(senate_leadership=True)
+    return render_to_response('contact.html', locals())
+
 def cabinet(request):
     return render_to_response('cabinet.html', locals())
 
@@ -91,4 +96,7 @@ def senators(request):
 def projects(request):
     return render_to_response('projects.html', locals())
 
+def people(request, id):
+    person = get_object_or_404(Person, id=int(id))
+    return render_to_response('person.html', locals())
 

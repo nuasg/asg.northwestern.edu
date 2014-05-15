@@ -19,7 +19,7 @@
           {% for announcement in announcements %}
           <li>
           <p><a {% if announcement.link_title_to %}target="_blank" href="{{ announcement.link_title_to }}"{% else %}href="/announcements/{{ announcement.slug }}?from_homepage"{% endif %}>{{ announcement.title }}</a></p>
-          <small>{{ announcement.message|safe|truncatewords_html:30 }}{% if not announcement.link_title_to %}<a href="/announcements/{{ announcement.slug }}?from_homepage">Read more &raquo;</a>{% endif %}</small>
+          <small>{{ announcement.message|safe|truncatewords_html:30 }}{% if not announcement.link_title_to %}<a href="/announcements/{{ announcement.slug }}/?from_homepage">Read more &raquo;</a>{% endif %}</small>
           </li>
           {% endfor %}
         </ul>

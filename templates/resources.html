@@ -31,7 +31,7 @@
     <h2>Services</h2>
     <div class="list-group no-border">
       {% for service in services %}
-      <a href="{{ service.link }}" target="_blank" class="list-group-item resource">
+      <a {% if service.link %}href="{{ service.link }}" target="_blank"{% else %}href="/{{ service.page.slug }}/"{% endif %} class="list-group-item resource">
         {% if service.logo_image %}
         <img src="{{ MEDIA_URL }}{{ service.logo_image }}" alt="" height="80">
         {% else %}

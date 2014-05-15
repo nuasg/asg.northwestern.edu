@@ -63,6 +63,7 @@ class Person(models.Model):
 
 class Position(models.Model):
     name = models.CharField(max_length=255)
+    email = models.EmailField(max_length=254, blank=True, help_text='The official @u email for this position, if it has one')
     description = models.TextField(blank=True)
     
     # For director positions on committees, etc.
@@ -152,8 +153,8 @@ class GoogleCalendar(models.Model):
     slug = models.SlugField()
     xml_feed_url = models.URLField()
     calendar_id = models.TextField(editable=False)
-    is_public = models.BooleanField(default=False)
-    display_by_default = models.BooleanField(default=False)
+    display_on_calendar_page = models.BooleanField(default=True)
+    display_by_default = models.BooleanField(default=True)
     show_on_homepage = models.BooleanField(default=False)
     is_office_hours = models.BooleanField(default=False)
     event_color = ColorField(blank=True)
@@ -205,11 +206,12 @@ RESOURCE_USERS = (
 )
 class Resource(models.Model):
     name = models.CharField(max_length=100, blank=True)
-    logo_image = models.FileField(upload_to='resource_logos', blank=True)
+    logo_image = models.ImageField(upload_to='resource_logos', blank=True, help_text='If you provide a logo, it will be displayed instead of the name')
     type = models.CharField(max_length=1, choices=RESOURCE_TYPES)
     users = models.CharField(max_length=2, choices=RESOURCE_USERS)
     description = models.TextField(blank=True)
-    link = models.URLField(blank=True)
+    page = models.ForeignKey('Page', null=True, blank=True)
+    link = models.URLField(blank=True, help_text='If you enter a link, it will be used instead of a link to the page')
 
     def __unicode__(self):
         return '%s for %s: %s' % (self.get_type_display(),

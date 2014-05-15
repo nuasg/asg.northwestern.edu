@@ -47,7 +47,7 @@ h1 {
   <div class="col-md-12">
     <div class="pull-right">
       {% for calendar in calendars %}
-      <div class="btn btn-default on toggle-{{ calendar.slug }}">
+      <div class="btn btn-default {% if calendar.display_by_default %}on{% endif %} toggle-{{ calendar.slug }}">
         {{ calendar.name }}
       </div>
       {% endfor %}
@@ -66,10 +66,12 @@ h1 {
 var calendar = $('.calendar').fullCalendar({
   eventSources: [
   {% for calendar in calendars %}
+    {% if calendar.display_by_default %}
     {
       url: '{{ calendar.xml_feed_url }}',
       className: 'cal-{{ calendar.slug }}'
     },
+    {% endif %}
   {% endfor %}
   ],
   eventClick: function(event) {
@@ -87,7 +89,7 @@ var calendar = $('.calendar').fullCalendar({
 
 var display = {
 {% for calendar in calendars %}
-  '{{ calendar.slug }}': true,
+'{{ calendar.slug }}': {% if calendar.display_by_default %}true{% else %}false{% endif %},
 {% endfor %}
 };
 

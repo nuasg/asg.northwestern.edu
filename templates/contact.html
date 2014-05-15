@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block title %}Contact Us | Associated Student Government{% endblock title %}
 
@@ -6,6 +7,40 @@
 <div class="row">
   <div class="col-md-12">
     <h1>Contact Us</h1>
+        <div><img style="float: right;" src="{% static 'images/office_floorplan.png' %}" alt="" width="281" height="224"></div>
+        <h3>Where to find us</h3>
+        <p>The ASG Office is located on the third floor of the&nbsp;<a href="http://maps.northwestern.edu/?lookupid=110">Norris Center</a>, between the north stairwell and the Center for Student Involvement (right next to the vending machines).</p>
+        <div class="clearfix">&nbsp;</div>
+        <h2>Executive Board</h2>
+        <table class="table">
+          <thead>
+            <tr><th>Name</th><th>Position</th><th>Email</th></tr>
+          </thead>
+          <tbody>
+            {% for position in exec_board_positions %}
+            <tr>
+              <td>{{ position.person_set.first.full_name }}</td>
+              <td>{{ position.name }}</td>
+              <td><a href="mailto:{{ position.email }}">{{ position.email }}</a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <h2>Senate Leadership</h2>
+        <table class="table">
+          <thead>
+            <tr><th>Name</th><th>Position</th><th>Email</th></tr>
+          </thead>
+          <tbody>
+            {% for position in senate_leadership_positions %}
+            <tr>
+              <td>{{ position.person_set.first.full_name }}</td>
+              <td {% if position.description %}data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."{% endif %}>{{ position.name }}</td>
+              <td><a href="mailto:{{ position.email }}">{{ position.email }}</a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
   </div>
 </div>
 {% endblock content %}
