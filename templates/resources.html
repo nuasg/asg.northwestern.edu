@@ -16,7 +16,7 @@
     <h2>Resources</h2>
     <div class="list-group no-border">
       {% for resource in resources %}
-      <a href="{{ resource.link }}" target="_blank" class="list-group-item resource">
+      <a {% if resource.link %}href="{{ resource.link }}" target="_blank"{% else %}href="/{{ resource.page.slug }}/"{% endif %} class="list-group-item resource">
         {% if resource.logo_image %}
         <img src="{{ resource.logo_image }}" alt="" height="80">
         {% else %}

@@ -21,6 +21,7 @@ urlpatterns = patterns('asg.views',
     url(r'^senators/', 'senators'),
     url(r'^projects/', 'projects'),
     url(r'^people/(?P<id>\d+)/([\w-]+/)?$', 'people'),
+    url(r'^tinymce/', include('tinymce.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^(?P<page_slug>[\w-]+)/$', 'page'),
 )

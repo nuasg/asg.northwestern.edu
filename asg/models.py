@@ -64,12 +64,12 @@ class Person(models.Model):
 class Position(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=254, blank=True, help_text='The official @u email for this position, if it has one')
-    description = models.TextField(blank=True)
+    description = models.TextField(blank=True, null=True)
     
     # For director positions on committees, etc.
-    committee = models.ForeignKey('Committee', null=True, blank=True)
+    committee = models.ForeignKey('Committee', null=True, blank=True, help_text='The committee that the person in this position oversees')
 
-    order = models.IntegerField(blank=True)
+    order = models.IntegerField(blank=True, null=True)
     on_exec_board = models.BooleanField(default=True)
     senate_leadership = models.BooleanField(default=False)
     
@@ -83,11 +83,11 @@ class Position(models.Model):
 class Committee(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
-    members = models.ManyToManyField('Person')
+    members = models.ManyToManyField('Person', blank=True, null=True)
 
     # Some committees might be for the Executive VP's pet projects,
     # for example, and we don't want to show those on the Committee page
-    show_in_list = models.BooleanField(default=True)
+    show_in_list = models.BooleanField(default=True, help_text='Uncheck this for committees that shouldn\'t appear on the Committees page')
 
     def __unicode__(self):
         return self.name
@@ -96,10 +96,10 @@ class Committee(models.Model):
 class Project(models.Model):
     name = models.CharField(max_length=100)
     description = tmodels.HTMLField(blank=True)
-    committee = models.ForeignKey('Committee')
+    committee = models.ForeignKey('Committee', blank=True, null=True)
 
     primary_contact = models.ForeignKey('Person', null=True, blank=True, related_name='+')
-    members = models.ManyToManyField('Person')
+    members = models.ManyToManyField('Person', blank=True, null=True)
 
     def __unicode__(self):
         return '%s: %s' % (self.committee, self.name)
@@ -211,7 +211,7 @@ class Resource(models.Model):
     users = models.CharField(max_length=2, choices=RESOURCE_USERS)
     description = models.TextField(blank=True)
     page = models.ForeignKey('Page', null=True, blank=True)
-    link = models.URLField(blank=True, help_text='If you enter a link, it will be used instead of a link to the page')
+    link = models.URLField(blank=True, help_text='If you enter a link, it will be used instead of the resource being linked to the website page')
 
     def __unicode__(self):
         return '%s for %s: %s' % (self.get_type_display(),
