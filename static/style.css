@@ -315,6 +315,51 @@ ul.in-news small {
 
 
 
+/* cabinet */
+.cabinet-member {
+    position: relative;
+    padding-right: 0;
+    padding-left: 0;
+}
+.cabinet-member .photo {
+    width: 100%;
+}
+.cabinet-member .meta {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    padding: 4px 10px;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+.cabinet-member .name {
+    font-size: 20px;
+}
+.cabinet-member .position-name {
+    font-size: 14px;
+}
+
+
+
+/* individual profile page */
+.person-details {
+    float: right;
+}
+.person-meta {
+    margin-bottom: 10px;
+}
+.person-meta h2 {
+    margin-top: 0;
+}
+.person-meta p {
+    margin-bottom: 0;
+}
+.person-bio {
+    margin-top: 14px;
+}
+
+
 
 /* responsive slides css */
 .rslides {

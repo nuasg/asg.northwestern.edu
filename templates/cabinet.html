@@ -7,12 +7,40 @@
 <div class="row">
   <div class="col-md-12">
     <h1>Cabinet</h1>
-    {% for member in exec_members %}
-      {% if member.photo %}<img src="{% cropped_thumbnail member thumbnail_size %}"><br>{% endif %}
-      {{ member.full_name }}<br>
-      {{ member.positions.first.name }}<br>
-      {{ member.positions.first.description }}<br><br>
-    {% endfor %}
+    <p>ASG's Executive Board and Senate Leadership</p>
   </div>
 </div>
+
+{% for member in exec_members %}
+{% if forloop.counter0|divisibleby:4 %}
+<div class="row">
+{% endif %}
+<a href="/people/{{ member.id }}/{{ member.full_name|slugify }}" class="col-sm-3 col-xs-6 cabinet-member" {% if member.positions.first.description %}data-container="body" data-toggle="popover" data-trigger="hover" {% if not forloop.counter0|add:1|divisibleby:4 %}data-placement="right"{% else %}data-placement="left"{% endif %} data-title="{{ member.positions.first.name }}" data-content="{{ member.positions.first.description }}"{% endif %}>
+  {% if member.photo %}
+  <img class="photo" src="{% cropped_thumbnail member thumbnail_size %}"><br>
+  {% else %}
+  <img class="photo" src="/uploads/profile_photos/default.jpg"><br>
+  {% endif %}
+  <div class="meta">
+    <div class="name">{{ member.full_name }}</div>
+    <div class="position-name">{{ member.positions.first.name }}</div>
+  </div>
+</a>
+{% if forloop.counter0|add:1|divisibleby:4 %}
+</div>
+{% endif %}
+{% endfor %}
+
+{# close the last row in case the number of exec members isn't divisible by 4 #}
+{% if not exec_members.count|divisibleby:4 %}
+</div>
+{% endif %}
+
 {% endblock content %}
+
+{% block scripts %}
+<script>
+  // Initialize popovers - bootstrap requires this for performance reasons
+  $('a[data-toggle="popover"]').popover();
+</script>
+{% endblock scripts %}

@@ -1,13 +1,32 @@
 {% extends 'base.html' %}
+{% load cropping %}
 
 {% block title %}{{ person.full_name }} | Associated Student Government{% endblock title %}
 
 {% block content %}
 <div class="row">
-  <div class="col-md-12">
-    <h1>{{ person.full_name }}</h1>
-    <p><strong>Position{% if person.positions.count > 1 %}s{% endif %}: </strong>{% for position in person.positions.iterator %}{{ position.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
-    This is a person
+  <div class="col-md-9">
+    <div class="row">
+      <div class="col-sm-8 col-sm-push-4 person-meta">
+        <h2>{{ person.full_name }}</h2>
+        <p class="position"><strong>{% for position in person.positions.iterator %}{{ position.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</strong></p>
+        <p><a href="mailto:{{ person.email }}">{{ person.email }}</a></p>
+        {% if person.date_joined %}
+          <p>Joined ASG on {{ person.date_joined|date:'F d, Y' }}</p>
+        {% endif %}
+      </div>
+      {% if person.photo %}
+      <img class="photo col-sm-4 col-sm-pull-8" src="{% cropped_thumbnail person thumbnail_size %}"><br>
+      {% else %}
+      <img class="photo col-sm-4 col-sm-pull-8" src="/uploads/profile_photos/default.jpg">
+      {% endif %}
+    </div>
+
+    {% if person.bio %}
+    <p class="person-bio">{{ person.bio }}</p>
+    {% else %}
+    <p class="person-bio text-muted"><em>{{ person.first_name }} doesn't have a bio.</em></p>
+    {% endif %}
   </div>
 </div>
 {% endblock content %}

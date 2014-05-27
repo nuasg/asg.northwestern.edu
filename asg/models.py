@@ -3,6 +3,7 @@ import urlparse
 import tinymce.models as tmodels
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.files import File
 from colorfield.fields import ColorField
 from image_cropping import ImageRatioField, ImageCropField
 
@@ -40,12 +41,12 @@ class Person(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField(max_length=254, blank=True)
-    date_joined = models.DateField(blank=True, null=True)
+    date_joined = models.DateField(blank=True, null=True, help_text='The date you first joined ASG')
     positions = models.ManyToManyField('Position', blank=True)
     bio = models.TextField(blank=True)
     active = models.BooleanField(default=True)
 
-    photo = ImageCropField(upload_to='profile_photos', blank=True, null=True, default='settings.MEDIA_ROOT/profile_photos/default.jpg')
+    photo = ImageCropField(upload_to='profile_photos', blank=True, null=True, default=File('settings.MEDIA_ROOT/profile_photos/default.jpg'))
     thumbnail_size = ImageRatioField('photo', '200x200', size_warning=True)
 
     website_role = models.CharField(max_length=4, choices=WEBSITE_ROLES, blank=True)
