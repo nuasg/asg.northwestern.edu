@@ -7,7 +7,7 @@
   <div class="col-md-9">
     <a class="btn btn-default" href="/projects/">&laquo; Back to list of projects</a>
     <h1>{{ project.name }}</h1>
-    {{ project.committee }}
+    <p>{% for committee in project.committees.iterator %}{{ committee.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
     {{ project.description|safe }}
   </div>
 </div>

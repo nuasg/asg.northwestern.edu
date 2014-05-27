@@ -5,6 +5,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from models import *
 import itertools
+import random
 
 def home(request):
     current_time = timezone.now()
@@ -98,7 +99,9 @@ def senators(request):
     return render_to_response('senators.html', locals())
 
 def projects(request):
-    projects = Project.objects.all() # iterator() doesn't supply count()
+    # iterator() doesn't supply count()
+    projects = Project.objects.all()
+    random.shuffle(list(projects))
     return render_to_response('projects.html', locals())
 
 def view_project(request, id):

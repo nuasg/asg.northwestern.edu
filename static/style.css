@@ -320,7 +320,7 @@ ul.in-news small {
     position: relative;
     padding-right: 0;
     padding-left: 0;
-    transition: opacity 0.2s ease-in-out;
+    transition: opacity 0.1s ease-in-out;
 }
 .cabinet-member:hover {
     opacity: 0.9;
