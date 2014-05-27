@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from models import *
+import itertools
 
 def home(request):
     current_time = timezone.now()
@@ -88,9 +89,12 @@ def contact(request):
     return render_to_response('contact.html', locals())
 
 def cabinet(request):
+    exec_members = Person.objects.filter(positions__on_exec_board=True)\
+                            .order_by('positions__order')
     return render_to_response('cabinet.html', locals())
 
 def senators(request):
+    senators = Person.objects.filter(positions__name='Senator')
     return render_to_response('senators.html', locals())
 
 def projects(request):

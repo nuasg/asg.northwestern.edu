@@ -1,4 +1,5 @@
 from django.contrib import admin
+from image_cropping import ImageCroppingMixin
 from models import *
 
 
@@ -11,7 +12,7 @@ class AnnouncementAdmin(admin.ModelAdmin):
 class GoogleCalendarAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
-class PersonAdmin(admin.ModelAdmin):
+class PersonAdmin(ImageCroppingMixin, admin.ModelAdmin):
     radio_fields = {
         'website_role': admin.VERTICAL,
     }

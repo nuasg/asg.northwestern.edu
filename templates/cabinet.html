@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load cropping %}
 
 {% block title %}Cabinet | Associated Student Government{% endblock title %}
 
@@ -6,7 +7,12 @@
 <div class="row">
   <div class="col-md-12">
     <h1>Cabinet</h1>
-    WIP
+    {% for member in exec_members %}
+      {% if member.photo %}<img src="{% cropped_thumbnail member thumbnail_size %}"><br>{% endif %}
+      {{ member.full_name }}<br>
+      {{ member.positions.first.name }}<br>
+      {{ member.positions.first.description }}<br><br>
+    {% endfor %}
   </div>
 </div>
 {% endblock content %}

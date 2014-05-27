@@ -37,6 +37,8 @@ INSTALLED_APPS = (
     'south',
     'tinymce',
     'colorfield',
+    'easy_thumbnails',
+    'image_cropping',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -147,6 +149,22 @@ TINYMCE_DEFAULT_CONFIG = {
     ],
     'toolbar': 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
 }
+
+
+# Django image cropping widget configuration
+
+from easy_thumbnails.conf import Settings as thumbnail_settings
+THUMBNAIL_PROCESSORS = (
+    'image_cropping.thumbnail_processors.crop_corners',
+) + thumbnail_settings.THUMBNAIL_PROCESSORS
+
+IMAGE_CROPPING_THUMB_SIZE = (300, 300)
+
+SOUTH_MIGRATION_MODULES = {
+    'easy_thumbnails': 'easy_thumbnails.south_migrations',
+}
+
+
 
 try:
     from local_settings import *

@@ -4,6 +4,7 @@ import tinymce.models as tmodels
 from django.db import models
 from django.contrib.auth.models import User
 from colorfield.fields import ColorField
+from image_cropping import ImageRatioField, ImageCropField
 
 
 class Alert(models.Model):
@@ -42,8 +43,10 @@ class Person(models.Model):
     date_joined = models.DateField(blank=True, null=True)
     positions = models.ManyToManyField('Position', blank=True)
     bio = models.TextField(blank=True)
-    photo = models.ImageField(upload_to='profile_photos', blank=True)
     active = models.BooleanField(default=True)
+
+    photo = ImageCropField(upload_to='profile_photos', blank=True, null=True, default='settings.MEDIA_ROOT/profile_photos/default.jpg')
+    thumbnail_size = ImageRatioField('photo', '200x200', size_warning=True)
 
     website_role = models.CharField(max_length=4, choices=WEBSITE_ROLES, blank=True)
 
@@ -227,3 +230,11 @@ class Upload(models.Model):
 
     def __unicode__(self):
         return unicode(self.file)
+
+
+class ApprovedUser(models.Model):
+    netid = models.CharField(max_length=6)
+    position = models.ForeignKey('Position')
+
+    def __unicode__(self):
+        return unicode(self.netid)
