@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load cropping %}
 
 {% block title %}Senators | Associated Student Government{% endblock title %}
 
@@ -6,7 +7,32 @@
 <div class="row">
   <div class="col-md-12">
     <h1>Senators</h1>
-    WIP
+    <p>Your student representatives.</p>
   </div>
 </div>
+
+<div class="row">
+{% for senator in senators %}
+<a href="/people/{{ senator.id }}/{{ senator.full_name|slugify }}/" class="col-lg-2 col-sm-3 col-xs-6 people-grid">
+  {% if senator.photo %}
+  <img class="photo" src="{% cropped_thumbnail senator thumbnail_size %}"><br>
+  {% else %}
+  <img class="photo" src="/uploads/profile_photos/default.jpg"><br>
+  {% endif %}
+  <div class="meta">
+    <div class="name">{{ senator.full_name }}</div>
+    <div class="position-name">{{ senator.groups_represented }}</div>
+  </div>
+</a>
+{% endfor %}
+</div>
+
 {% endblock content %}
+
+
+{% block scripts %}
+<script>
+  // Initialize popovers - bootstrap requires this for performance reasons
+  $('a[data-toggle="popover"]').popover();
+</script>
+{% endblock scripts %}

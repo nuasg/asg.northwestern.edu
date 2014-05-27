@@ -42,6 +42,8 @@ class Person(models.Model):
     photo = ImageCropField(upload_to='profile_photos', blank=True, null=True, help_text='Photos must be at least 200 x 200 in size.')
     thumbnail_size = ImageRatioField('photo', '200x200', size_warning=True)
 
+    groups_represented = models.TextField(blank=True, help_text='For senators, the groups this person represents')
+
     # Person will have projects, committees from
     # fields defined in those models
 

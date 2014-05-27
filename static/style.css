@@ -321,19 +321,19 @@ ul.in-news small {
 
 
 /* cabinet */
-.cabinet-member {
+.people-grid {
     position: relative;
     padding-right: 0;
     padding-left: 0;
     transition: opacity 0.1s ease-in-out;
 }
-.cabinet-member:hover {
+.people-grid:hover {
     opacity: 0.9;
 }
-.cabinet-member .photo {
+.people-grid .photo {
     width: 100%;
 }
-.cabinet-member .meta {
+.people-grid .meta {
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -342,10 +342,10 @@ ul.in-news small {
     box-sizing: border-box;
     background-color: rgba(0, 0, 0, 0.7);
 }
-.cabinet-member .name {
+.people-grid .name {
     font-size: 20px;
 }
-.cabinet-member .position-name {
+.people-grid .position-name {
     font-size: 14px;
 }
 

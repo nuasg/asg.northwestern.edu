@@ -13,7 +13,7 @@
 
 <div class="row">
 {% for member in exec_members %}
-<a href="/people/{{ member.id }}/{{ member.full_name|slugify }}/" class="col-lg-2 col-sm-3 col-xs-6 cabinet-member">
+<a href="/people/{{ member.id }}/{{ member.full_name|slugify }}/" class="col-lg-2 col-sm-3 col-xs-6 people-grid">
   {% if member.photo %}
   <img class="photo" src="{% cropped_thumbnail member thumbnail_size %}"><br>
   {% else %}

@@ -10,6 +10,9 @@
       <div class="col-sm-8 col-sm-push-4 person-meta">
         <h2>{{ person.full_name }}</h2>
         <p class="position"><strong>{% for position in person.positions.iterator %}{{ position.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</strong></p>
+        {% if person.groups_represented %}
+        <p>Represents {{ person.groups_represented }}</p>
+        {% endif %}
         <p><a href="mailto:{{ person.email }}">{{ person.email }}</a></p>
         {% if person.date_joined %}
           <p>Joined ASG on {{ person.date_joined|date:'F d, Y' }}</p>
