@@ -320,6 +320,10 @@ ul.in-news small {
     position: relative;
     padding-right: 0;
     padding-left: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+.cabinet-member:hover {
+    opacity: 0.9;
 }
 .cabinet-member .photo {
     width: 100%;
@@ -358,6 +362,27 @@ ul.in-news small {
 .person-bio {
     margin-top: 14px;
 }
+
+
+
+
+
+/* projects page */
+.project h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.project p {
+    margin: 0;
+}
+.projects-row {
+    margin-top: 10px;
+}
+.projects-row + .projects-row {
+    margin-top: 20px;
+}
+
+
 
 
 

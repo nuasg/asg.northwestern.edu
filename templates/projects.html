@@ -6,7 +6,28 @@
 <div class="row">
   <div class="col-md-12">
     <h1>Projects</h1>
-    WIP
+    <p>Here are initiatives and projects that ASG's committees are currently working on. </p>
   </div>
 </div>
+
+{% for project in projects %}
+{% if forloop.counter0|divisibleby:2 %}
+<div class="row projects-row">
+{% endif %}
+  <div class="col-sm-6 project">
+    <h3><a href="/projects/{{ project.id }}/{{ project.name|slugify }}/">{{ project.name }}</a></h3>
+    <p class="small">{% for committee in project.committees.iterator %}{{ committee.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+    {{ project.description|safe }}
+  </div>
+{% if forloop.counter0|add:1|divisibleby:2 %}
+</div>
+{% endif %}
+{% endfor %}
+
+{# close row in case there are an odd number of projects #}
+{% if not projects.count|divisibleby:2 %}
+</div>
+{% endif %}
+
+
 {% endblock content %}

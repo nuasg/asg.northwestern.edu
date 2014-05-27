@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ project.name }} | Associated Student Government{% endblock title %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-9">
+    <a class="btn btn-default" href="/projects/">&laquo; Back to list of projects</a>
+    <h1>{{ project.name }}</h1>
+    {{ project.committee }}
+    {{ project.description|safe }}
+  </div>
+</div>
+{% endblock content %}

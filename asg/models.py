@@ -3,7 +3,6 @@ import urlparse
 import tinymce.models as tmodels
 from django.db import models
 from django.contrib.auth.models import User
-from django.core.files import File
 from colorfield.fields import ColorField
 from image_cropping import ImageRatioField, ImageCropField
 
@@ -46,7 +45,7 @@ class Person(models.Model):
     bio = models.TextField(blank=True)
     active = models.BooleanField(default=True)
 
-    photo = ImageCropField(upload_to='profile_photos', blank=True, null=True, default=File('settings.MEDIA_ROOT/profile_photos/default.jpg'))
+    photo = ImageCropField(upload_to='profile_photos', blank=True, null=True, default='settings.MEDIA_ROOT/profile_photos/default.jpg')
     thumbnail_size = ImageRatioField('photo', '200x200', size_warning=True)
 
     website_role = models.CharField(max_length=4, choices=WEBSITE_ROLES, blank=True)
@@ -99,14 +98,16 @@ class Committee(models.Model):
 
 class Project(models.Model):
     name = models.CharField(max_length=100)
+    short_desc = models.TextField(blank=True)
     description = tmodels.HTMLField(blank=True)
-    committee = models.ForeignKey('Committee', blank=True, null=True)
+    committees = models.ManyToManyField('Committee', blank=True, null=True)
 
     primary_contact = models.ForeignKey('Person', null=True, blank=True, related_name='+')
     members = models.ManyToManyField('Person', blank=True, null=True)
+    active = models.BooleanField(default=True)
 
     def __unicode__(self):
-        return '%s: %s' % (self.committee, self.name)
+        return '%s: %s' % (self.committees.first(), self.name)
 
 
 

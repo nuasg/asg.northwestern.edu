@@ -15,7 +15,7 @@
 {% if forloop.counter0|divisibleby:4 %}
 <div class="row">
 {% endif %}
-<a href="/people/{{ member.id }}/{{ member.full_name|slugify }}" class="col-sm-3 col-xs-6 cabinet-member" {% if member.positions.first.description %}data-container="body" data-toggle="popover" data-trigger="hover" {% if not forloop.counter0|add:1|divisibleby:4 %}data-placement="right"{% else %}data-placement="left"{% endif %} data-title="{{ member.positions.first.name }}" data-content="{{ member.positions.first.description }}"{% endif %}>
+<a href="/people/{{ member.id }}/{{ member.full_name|slugify }}/" class="col-sm-3 col-xs-6 cabinet-member">
   {% if member.photo %}
   <img class="photo" src="{% cropped_thumbnail member thumbnail_size %}"><br>
   {% else %}

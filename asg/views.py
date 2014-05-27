@@ -98,7 +98,12 @@ def senators(request):
     return render_to_response('senators.html', locals())
 
 def projects(request):
+    projects = Project.objects.all() # iterator() doesn't supply count()
     return render_to_response('projects.html', locals())
+
+def view_project(request, id):
+    project = get_object_or_404(Project, id=int(id))
+    return render_to_response('view_project.html', locals())
 
 def people(request, id):
     person = get_object_or_404(Person, id=int(id))
