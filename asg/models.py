@@ -39,7 +39,7 @@ class Person(models.Model):
     bio = models.TextField(blank=True)
     active = models.BooleanField(default=True)
 
-    photo = ImageCropField(upload_to='profile_photos', blank=True, null=True)
+    photo = ImageCropField(upload_to='profile_photos', blank=True, null=True, help_text='Photos must be at least 200 x 200 in size.')
     thumbnail_size = ImageRatioField('photo', '200x200', size_warning=True)
 
     # Person will have projects, committees from

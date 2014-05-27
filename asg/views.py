@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 from models import *
+from forms import *
 import itertools
 import random
 
@@ -118,4 +119,14 @@ def people(request, id):
 def edit_profile(request):
     'A page for the logged-in user to edit his/her own profile'
     person = get_object_or_404(Person, user=request.user)
-    return render_to_response('edit_profile.html', locals())
+    if request.method == 'GET':
+        person_form = PersonForm(instance=person)
+    elif request.method == 'POST':
+        # User submitted the form; update fields
+        person_form = PersonForm(request.POST, instance=person)
+        if person_form.is_valid():
+            # Save the updated data
+            person_form.save()
+            update_success = True
+    return render_to_response('edit_profile.html', locals(),
+                context_instance=RequestContext(request))

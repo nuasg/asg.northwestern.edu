@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'colorfield',
     'easy_thumbnails',
     'image_cropping',
+    'crispy_forms',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -164,6 +165,10 @@ IMAGE_CROPPING_THUMB_SIZE = (300, 300)
 SOUTH_MIGRATION_MODULES = {
     'easy_thumbnails': 'easy_thumbnails.south_migrations',
 }
+
+
+# Django crispy forms settings
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 
 

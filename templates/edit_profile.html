@@ -1,12 +1,24 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block title %}Edit my profile | Associated Student Government{% endblock title %}
 
+{% block head %}
+  {{ person_form.media }}
+{% endblock head %}
+
 {% block content %}
 <div class="row">
-  <div class="col-md-9">
-    {{ person.first_name }}
-    {{ person.last_name }}
+  <div class="col-md-10">
+    {% if update_success %}
+    <div class="alert alert-info">Changes saved.</div>
+    {% endif %}
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-10">
+    <h1>Edit my profile</h1>
+    {% crispy person_form %}
   </div>
 </div>
 {% endblock content %}
