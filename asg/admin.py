@@ -13,10 +13,7 @@ class GoogleCalendarAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
 class PersonAdmin(ImageCroppingMixin, admin.ModelAdmin):
-    radio_fields = {
-        'website_role': admin.VERTICAL,
-    }
-    list_display = ('full_name', 'website_role')
+    list_display = ('full_name', 'main_position')
 
 class ResourceAdmin(admin.ModelAdmin):
     radio_fields = {
@@ -32,6 +29,9 @@ class LegislationAdmin(admin.ModelAdmin):
 class HomepageSlideAdmin(admin.ModelAdmin):
     list_display = ('caption', 'order', 'active')
 
+class ApprovedUserAdmin(admin.ModelAdmin):
+    list_display = ('netid', 'position')
+
 
 admin.site.register(Alert)
 admin.site.register(Announcement, AnnouncementAdmin)
@@ -46,3 +46,4 @@ admin.site.register(HomepageSlide, HomepageSlideAdmin)
 admin.site.register(Page, PageAdmin)
 admin.site.register(Resource, ResourceAdmin)
 admin.site.register(Upload)
+admin.site.register(ApprovedUser, ApprovedUserAdmin)

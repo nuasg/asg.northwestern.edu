@@ -101,12 +101,11 @@ TEMPLATE_DIRS = (
 
 # Django auth LDAP
 
-"""
 import ldap
 from django_auth_ldap.config import LDAPSearch
 
 AUTHENTICATION_BACKENDS = (
-    'django_auth_ldap.backend.LDAPBackend',
+    'asg.auth.ASGLDAPBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -124,14 +123,16 @@ AUTH_LDAP_BASE_DN = 'dc=northwestern,dc=edu'
 AUTH_LDAP_USER_SEARCH = LDAPSearch(AUTH_LDAP_BASE_DN,
     ldap.SCOPE_SUBTREE, '(uid=%(user)s)')
 
+# Django auth debugging code
+#import logging
+#logger = logging.getLogger('django_auth_ldap')
+#logger.addHandler(logging.StreamHandler())
+#logger.setLevel(logging.DEBUG)
 
-## TODO debug
-import logging
-logger = logging.getLogger('django_auth_ldap')
-logger.addHandler(logging.StreamHandler())
-logger.setLevel(logging.DEBUG)
-## TODO debug
-"""
+
+# After login, send user to a custom view that checks the
+# user type and redirects accordingly
+LOGIN_REDIRECT_URL = 'edit_profile'
 
 
 # TinyMCE settings

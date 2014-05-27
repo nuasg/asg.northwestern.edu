@@ -1,7 +1,8 @@
 from django.utils import timezone
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 from models import *
 import itertools
@@ -109,6 +110,12 @@ def view_project(request, id):
     return render_to_response('view_project.html', locals())
 
 def people(request, id):
+    'Display the profile of a single person'
     person = get_object_or_404(Person, id=int(id))
     return render_to_response('person.html', locals())
 
+@login_required
+def edit_profile(request):
+    'A page for the logged-in user to edit his/her own profile'
+    person = get_object_or_404(Person, user=request.user)
+    return render_to_response('edit_profile.html', locals())

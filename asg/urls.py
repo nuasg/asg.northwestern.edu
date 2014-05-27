@@ -22,7 +22,14 @@ urlpatterns = patterns('asg.views',
     url(r'^projects/(?P<id>\d+)/([\w-]+/)?$', 'view_project'),
     url(r'^projects/', 'projects'),
     url(r'^people/(?P<id>\d+)/([\w-]+/)?$', 'people'),
+    url(r'^edit_profile/', 'edit_profile'),
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^(?P<page_slug>[\w-]+)/$', 'page'),
+)
+
+urlpatterns += patterns('', 
+    url(r'^logout/', 'django.contrib.auth.views.logout', 
+            {'next_page': '/'}),
+    # Pages with root slugs must go last
+    url(r'^(?P<page_slug>[\w-]+)/$', 'asg.views.page'),
 )

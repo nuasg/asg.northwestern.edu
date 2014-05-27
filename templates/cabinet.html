@@ -11,11 +11,9 @@
   </div>
 </div>
 
-{% for member in exec_members %}
-{% if forloop.counter0|divisibleby:4 %}
 <div class="row">
-{% endif %}
-<a href="/people/{{ member.id }}/{{ member.full_name|slugify }}/" class="col-sm-3 col-xs-6 cabinet-member">
+{% for member in exec_members %}
+<a href="/people/{{ member.id }}/{{ member.full_name|slugify }}/" class="col-lg-2 col-sm-3 col-xs-6 cabinet-member">
   {% if member.photo %}
   <img class="photo" src="{% cropped_thumbnail member thumbnail_size %}"><br>
   {% else %}
@@ -26,17 +24,11 @@
     <div class="position-name">{{ member.positions.first.name }}</div>
   </div>
 </a>
-{% if forloop.counter0|add:1|divisibleby:4 %}
-</div>
-{% endif %}
 {% endfor %}
-
-{# close the last row in case the number of exec members isn't divisible by 4 #}
-{% if not exec_members.count|divisibleby:4 %}
 </div>
-{% endif %}
 
 {% endblock content %}
+
 
 {% block scripts %}
 <script>

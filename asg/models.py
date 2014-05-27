@@ -28,12 +28,6 @@ class Announcement(models.Model):
         return '%s: %s' % (self.date_posted.date(), self.title)
 
 
-# Will be used for editing permissions on the website
-WEBSITE_ROLES = [
-    ('EXEC', 'Executive Board Officer'),
-    ('CMEM', 'Committee Member'),
-    ('SEN', 'Senator')
-]
 class Person(models.Model):
     user = models.ForeignKey(User, null=True, blank=True)
     netid = models.CharField(max_length=6, blank=True)
@@ -45,13 +39,15 @@ class Person(models.Model):
     bio = models.TextField(blank=True)
     active = models.BooleanField(default=True)
 
-    photo = ImageCropField(upload_to='profile_photos', blank=True, null=True, default='settings.MEDIA_ROOT/profile_photos/default.jpg')
+    photo = ImageCropField(upload_to='profile_photos', blank=True, null=True)
     thumbnail_size = ImageRatioField('photo', '200x200', size_warning=True)
 
-    website_role = models.CharField(max_length=4, choices=WEBSITE_ROLES, blank=True)
-
     # Person will have projects, committees from
-    # fields in those models
+    # fields defined in those models
+
+    class Meta:
+        verbose_name_plural = 'People'
+        ordering = ['last_name', 'first_name']
 
     def __unicode__(self):
         return self.full_name()
@@ -59,9 +55,11 @@ class Person(models.Model):
     def full_name(self):
         return '%s %s' % (self.first_name, self.last_name)
 
-    class Meta:
-        verbose_name_plural = 'People'
-        ordering = ['last_name', 'first_name']
+    def main_position(self):
+        try:
+            return self.positions.order_by('on_exec_board', 'senate_leadership')[0]
+        except:
+            return None
 
 
 class Position(models.Model):
@@ -98,8 +96,7 @@ class Committee(models.Model):
 
 class Project(models.Model):
     name = models.CharField(max_length=100)
-    short_desc = models.TextField(blank=True)
-    description = tmodels.HTMLField(blank=True)
+    description = models.TextField(blank=True, help_text='A brief description of your project and progress')
     committees = models.ManyToManyField('Committee', blank=True, null=True)
 
     primary_contact = models.ForeignKey('Person', null=True, blank=True, related_name='+')
