@@ -154,6 +154,10 @@ h1 {
     }
 }
 
+.navbar-inverse .navbar-nav > li.last {
+    margin-right: 0;
+}
+
 
 /* homepage stuff */
 /* tweak homepage announcements spacing */
@@ -198,7 +202,6 @@ ul.legislation small,
 ul.events small,
 ul.in-news small {
     font-size: 13px;
-    font-variant: small-caps;
 }
 
 
@@ -392,10 +395,7 @@ input {
 .project p {
     margin: 0;
 }
-.projects-row {
-    margin-top: 10px;
-}
-.projects-row + .projects-row {
+.project {
     margin-top: 20px;
 }
 

@@ -52,6 +52,7 @@ def calendar(request):
 
 def office_hours(request):
     page_name = 'Office Hours'
+    office_hours = True
     calendars = GoogleCalendar.objects.filter(is_office_hours=True)
     return render_to_response('calendar.html', locals())
 
