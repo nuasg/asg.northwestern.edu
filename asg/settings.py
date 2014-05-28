@@ -133,7 +133,7 @@ AUTH_LDAP_USER_SEARCH = LDAPSearch(AUTH_LDAP_BASE_DN,
 
 # After login, send user to a custom view that checks the
 # user type and redirects accordingly
-LOGIN_REDIRECT_URL = 'edit_profile'
+LOGIN_REDIRECT_URL = 'asg.views.edit_profile'
 
 
 # TinyMCE settings

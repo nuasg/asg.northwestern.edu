@@ -59,7 +59,7 @@ class Person(models.Model):
 
     def main_position(self):
         try:
-            return self.positions.order_by('on_exec_board', 'senate_leadership')[0]
+            return self.positions.order_by('-on_exec_board', '-senate_leadership')[0]
         except:
             return None
 

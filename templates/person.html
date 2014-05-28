@@ -13,7 +13,13 @@
         {% if person.groups_represented %}
         <p>Represents {{ person.groups_represented }}</p>
         {% endif %}
+        {% with person.main_position as main_position %}
+        {% if main_position.on_exec_board and main_position.email %}
+        <p><a href="mailto:{{ main_position.email }}">{{ main_position.email }}</a></p>
+        {% else %}
         <p><a href="mailto:{{ person.email }}">{{ person.email }}</a></p>
+        {% endif %}
+        {% endwith %}
         {% if person.date_joined %}
           <p>Joined ASG on {{ person.date_joined|date:'F d, Y' }}</p>
         {% endif %}
