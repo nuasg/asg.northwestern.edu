@@ -17,7 +17,7 @@ def home(request):
     current_time = timezone.now()
     alerts = Alert.objects.filter(start_time__lte=current_time,
                                   end_time__gt=current_time)
-    announcements = Announcement.objects.order_by('-date_posted')[:2]
+    news = News.objects.order_by('-date_posted')[:2]
     bills = Legislation.objects.all()[:5]
     news_links = NewsLink.objects.order_by('-date_published')[:5]
     slides = HomepageSlide.objects.filter(active=True)
@@ -56,15 +56,15 @@ def office_hours(request):
     calendars = GoogleCalendar.objects.filter(is_office_hours=True)
     return render_to_response('calendar.html', locals())
 
-announcements_per_page = 10
-def list_announcements(request):
-    all_announcements = Announcement.objects.order_by('-date_posted')
-    p = Paginator(all_announcements, announcements_per_page)
+news_per_page = 10
+def list_news(request):
+    all_news = News.objects.order_by('-date_posted')
+    p = Paginator(all_news, news_per_page)
     last_page = p.num_pages
     pages = xrange(1, last_page+1)
     page = int(request.GET.get('page', 1))
-    announcements = p.page(page).object_list
-    return render_to_response('list_announcements.html', locals())
+    news = p.page(page).object_list
+    return render_to_response('list_news.html', locals())
 
 legislation_per_page = 10
 def list_legislation(request):
@@ -86,10 +86,10 @@ def list_news_links(request):
     news_links = p.page(page).object_list
     return render_to_response('list_news_links.html', locals())
 
-def announcement(request, slug):
+def news(request, slug):
     from_homepage = 'from_homepage' in request.GET
-    announcement = get_object_or_404(Announcement, slug=slug)
-    return render_to_response('announcement.html', locals())
+    news = get_object_or_404(News, slug=slug)
+    return render_to_response('news.html', locals())
 
 def contact(request):
     exec_board_positions = Position.objects.filter(on_exec_board=True)

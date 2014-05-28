@@ -16,7 +16,7 @@ class Alert(models.Model):
         return '%s: %s' % (self.start_time, self.message)
 
 
-class Announcement(models.Model):
+class News(models.Model):
     title = models.CharField(max_length=100)
     link_title_to = models.URLField(blank=True)
     slug = models.SlugField()

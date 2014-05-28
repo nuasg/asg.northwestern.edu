@@ -180,17 +180,17 @@ h1 {
 
 
 /* homepage stuff */
-/* tweak homepage announcements spacing */
-.announcements h3 {
+/* tweak homepage news spacing */
+.news h3 {
     margin-top: 0;
 }
-.announcements p {
+.news p {
     margin-bottom: 0;
 }
-.announcements li {
+.news li {
     margin-bottom: 16px;
 }
-.announcements li > p {
+.news li > p {
     font-weight: bold;
 }
 
