@@ -42,7 +42,8 @@ class Person(models.Model):
     photo = ImageCropField(upload_to='profile_photos', blank=True, null=True, help_text='Photos must be at least 200 x 200 in size.')
     thumbnail_size = ImageRatioField('photo', '200x200', size_warning=True)
 
-    groups_represented = models.TextField(blank=True, help_text='For senators, the groups this person represents')
+    groups_represented = models.TextField(blank=True, help_text='Abbreviations of the groups this person represents')
+    full_groups = models.TextField(blank=True, help_text='For senators, full names of the groups this person represents')
 
     # Person will have projects, committees from
     # fields defined in those models
@@ -66,6 +67,9 @@ class Person(models.Model):
     def on_exec(self):
         return self.positions.filter(on_exec_board=True).count() > 0
 
+    def is_senator(self):
+        return self.positions.filter(name='Senator').count() == 1
+
 
 class Position(models.Model):
     name = models.CharField(max_length=255)
@@ -80,7 +84,7 @@ class Position(models.Model):
     senate_leadership = models.BooleanField(default=False)
     
     class Meta:
-        ordering = ['on_exec_board', 'senate_leadership', 'order']
+        ordering = ['-on_exec_board', '-senate_leadership', 'order']
 
     def __unicode__(self):
         return self.name
@@ -219,6 +223,7 @@ class Resource(models.Model):
     description = models.TextField(blank=True)
     page = models.ForeignKey('Page', null=True, blank=True)
     link = models.URLField(blank=True, help_text='If you enter a link, it will be used instead of the resource being linked to the website page')
+    is_active = models.BooleanField(default=True)
 
     def __unicode__(self):
         return '%s for %s: %s' % (self.get_type_display(),

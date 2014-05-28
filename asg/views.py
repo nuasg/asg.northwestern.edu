@@ -30,16 +30,16 @@ def page(request, page_slug):
 def for_students(request):
     users = 'Student'
     desc = "ASG has all the info you need to know about what's happening every week, how to work with a faculty member, how to propose a new project, and more. Our online services help you find a job, sell/buy your books, and get a cab, while our fairs provide opportunities to connect with student groups and find off-campus housing."
-    resources = Resource.objects.filter(type='R', users='ST')
-    services = Resource.objects.filter(type='S', users='ST')
+    resources = Resource.objects.filter(type='R', users='ST', is_active=True)
+    services = Resource.objects.filter(type='S', users='ST', is_active=True)
     return render_to_response('resources.html', locals(),
                 context_instance=RequestContext(request))
 
 def for_groups(request):
     users = 'Student Group'
     desc = 'Want to know how to start a new student group, finance it, or publicize it? Check out our 2013-14 Student Handbook for all this and more. Also be sure to read the PR Guide for info on how to flyer, reserve rooms and tables, advertise, and print.'
-    resources = Resource.objects.filter(type='R', users='SG')
-    services = Resource.objects.filter(type='S', users='SG')
+    resources = Resource.objects.filter(type='R', users='SG', is_active=True)
+    services = Resource.objects.filter(type='S', users='SG', is_active=True)
     return render_to_response('resources.html', locals(), 
                 context_instance=RequestContext(request))
 
@@ -145,10 +145,10 @@ def edit_profile(request):
     'A page for the logged-in user to edit his/her own profile'
     person = get_object_or_404(Person, user=request.user)
     if request.method == 'GET':
-        person_form = PersonForm(instance=person)
+        person_form = PersonForm(person, instance=person)
     elif request.method == 'POST':
         # User submitted the form; update fields
-        person_form = PersonForm(request.POST, instance=person)
+        person_form = PersonForm(person, data=request.POST, instance=person)
         if person_form.is_valid():
             # Save the updated data
             person_form.save()

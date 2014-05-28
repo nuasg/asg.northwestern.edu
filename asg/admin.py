@@ -13,6 +13,7 @@ class GoogleCalendarAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
 class PersonAdmin(ImageCroppingMixin, admin.ModelAdmin):
+    ordering = ('-positions__on_exec_board', '-positions__senate_leadership', 'last_name')
     list_display = ('full_name', 'main_position')
 
 class ResourceAdmin(admin.ModelAdmin):
