@@ -51,6 +51,6 @@ class Command(BaseCommand):
 
                 # Create an ApprovedUser object so this person can log in later
                 au, _ = ApprovedUser.objects.get_or_create(netid=ldap_info['uid'][0],
-                                                position=position)
+                                                defaults={'position': position})
 
             print 'Added %d senators' % people_added

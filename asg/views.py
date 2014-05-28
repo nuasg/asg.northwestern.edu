@@ -1,5 +1,6 @@
 import itertools
 import random
+import time
 from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -120,6 +121,8 @@ def people(request, id):
 
 def login_user(request):
     if request.method == 'GET':
+        if request.user.is_authenticated():
+            return redirect('/edit_profile/')
         auth_form = ASGAuthForm()
     elif request.method == 'POST':
         auth_form = ASGAuthForm(request.POST)
@@ -146,13 +149,14 @@ def edit_profile(request):
     'A page for the logged-in user to edit his/her own profile'
     person = get_object_or_404(Person, user=request.user)
     if request.method == 'GET':
-        person_form = PersonForm(person, instance=person)
+        person_form = PersonForm(instance=person)
     elif request.method == 'POST':
         # User submitted the form; update fields
-        person_form = PersonForm(person, data=request.POST, instance=person)
+        person_form = PersonForm(request.POST, request.FILES, instance=person)
         if person_form.is_valid():
             # Save the updated data
             person_form.save()
             update_success = True
+        person_form = PersonForm(instance=person)
     return render_to_response('edit_profile.html', locals(),
                 context_instance=RequestContext(request))

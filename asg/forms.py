@@ -5,7 +5,7 @@ from crispy_forms.layout import Field, Fieldset, HTML, Layout, Submit
 from asg.models import Person
 
 class PersonForm(ModelForm):
-    def __init__(self, person, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(PersonForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = 'post'
@@ -14,6 +14,8 @@ class PersonForm(ModelForm):
         self.helper.label_class = 'col-md-3'
         self.helper.field_class = 'col-md-9'
         self.helper.add_input(Submit('submit', 'Save changes'))
+
+        person = kwargs.get('instance')
 
         layout = [
             Field('first_name'), 
