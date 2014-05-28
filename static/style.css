@@ -204,6 +204,9 @@ ul.in-news small {
 
 
 /* sitewide forms */
+input {
+    font-family: 'Lato', sans-serif;
+}
 .form-control {
     font-size: 18px;
 }
@@ -372,6 +375,9 @@ ul.in-news small {
 }
 .person-bio {
     margin-top: 14px;
+}
+.person-edit {
+    margin-top: 5px;
 }
 
 

@@ -10,7 +10,7 @@
       <div class="col-sm-8 col-sm-push-4 person-meta">
         <h2>{{ person.full_name }}</h2>
         <p class="position"><strong>{% for position in person.positions.iterator %}{{ position.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</strong></p>
-        {% if person.groups_represented %}
+        {% if person.is_senator %}
         <p>Represents {{ person.groups_represented }}</p>
         {% endif %}
         {% with person.main_position as main_position %}
@@ -22,6 +22,9 @@
         {% endwith %}
         {% if person.date_joined %}
           <p>Joined ASG on {{ person.date_joined|date:'F d, Y' }}</p>
+        {% endif %}
+        {% if request.user == person.user %}
+        <a class="btn btn-default person-edit" href="/edit_profile/">Edit my profile</a>
         {% endif %}
       </div>
       {% if person.photo %}

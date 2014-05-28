@@ -28,6 +28,7 @@ class Announcement(models.Model):
         return '%s: %s' % (self.date_posted.date(), self.title)
 
 
+min_profile_size = '200x200'
 class Person(models.Model):
     user = models.ForeignKey(User, null=True, blank=True)
     netid = models.CharField(max_length=6, blank=True)
@@ -39,8 +40,8 @@ class Person(models.Model):
     bio = models.TextField(blank=True)
     active = models.BooleanField(default=True)
 
-    photo = ImageCropField(upload_to='profile_photos', blank=True, null=True, help_text='Photos must be at least 200 x 200 in size.')
-    thumbnail_size = ImageRatioField('photo', '200x200', size_warning=True)
+    photo = ImageCropField(upload_to='profile_photos', blank=True, null=True, help_text='Photos must be at least %s in size.' % min_profile_size)
+    thumbnail_size = ImageRatioField('photo', min_profile_size, size_warning=True)
 
     groups_represented = models.TextField(blank=True, help_text='Abbreviations of the groups this person represents')
     full_groups = models.TextField(blank=True, help_text='For senators, full names of the groups this person represents')

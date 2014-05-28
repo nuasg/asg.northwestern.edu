@@ -18,6 +18,7 @@ class Command(BaseCommand):
         people = Person.objects.filter(positions=position)
         for p in people:
             p.positions.remove(position)
+        approvals = ApprovedUser.objects.filter(position=position).delete()
 
         # Add new senators
         with open(args[0], 'r') as f:
@@ -25,6 +26,10 @@ class Command(BaseCommand):
             people_added = 0
 
             for i, row in enumerate(reader):
+                # Skip vacant positions
+                if len(row['email']) == 0:
+                    continue
+
                 # Fetch info from the directory
                 ldap_info = get_ldap_info(email=row['email'])
 

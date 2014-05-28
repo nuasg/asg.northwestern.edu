@@ -5,7 +5,7 @@ from command_utils import get_ldap_info
 
 class Command(BaseCommand):
     args = 'file.csv - a csv file (without headers) with two columns: Position and Email Address (the person\'s individual one)'
-    help = 'Update the current exec board members based on a CSV file'
+    help = 'Update the senate leadership based on a CSV file'
 
     def handle(self, *args, **options):
         if len(args) < 1:
@@ -18,7 +18,7 @@ class Command(BaseCommand):
             people_added = 0
             for i, row in enumerate(reader):
                 position, created = Position.objects.get_or_create(name=row['position'],
-                                                        defaults={'on_exec_board': True})
+                                                        defaults={'senate_leadership': True})
                 if created:
                     positions_created += 1
                 position.order = i
