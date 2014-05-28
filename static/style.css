@@ -70,6 +70,15 @@ h1 {
     border-radius: 0;
 }
 
+.navbar-inverse .navbar-toggle,
+.navbar-inverse .navbar-collapse,
+.navbar-inverse .navbar-form {
+    border-color: #ccc;
+}
+.navbar-inverse .navbar-toggle:hover,
+.navbar-inverse .navbar-toggle:focus {
+    background-color: #444;
+}
 .navbar-inverse .navbar-brand,
 .navbar-inverse .navbar-nav > li > a {
     color: #e0e0e0;
@@ -159,6 +168,17 @@ h1 {
 }
 
 
+/* top bar for logged-in users */
+.user-bar {
+    background: #333;
+    color: #eee;
+    padding: 0 15px;
+}
+.user-bar a {
+    color: #eee;
+}
+
+
 /* homepage stuff */
 /* tweak homepage announcements spacing */
 .announcements h3 {
@@ -210,6 +230,9 @@ ul.in-news small {
 input {
     font-family: 'Lato', sans-serif;
 }
+.btn {
+    font-size: 16px;
+}
 .form-control {
     font-size: 18px;
 }
@@ -257,6 +280,9 @@ input {
     }
     h6 {
         font-size: 16px;
+    }
+    .btn {
+        font-size: 14px;
     }
     .form-control,
     body {

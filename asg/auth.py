@@ -10,6 +10,8 @@ class ASGLDAPBackend(LDAPBackend):
     # correct group.
     def get_or_create_user(self, username, ldap_user):
         # Check if this student should be able to log in
+        # TODO this should be replaced by checking/modifying
+        # the is_active flag on the User model
         try:
             approval = ApprovedUser.objects.get(netid=username)
         except ApprovedUser.DoesNotExist:

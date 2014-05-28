@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'easy_thumbnails',
     'image_cropping',
     'crispy_forms',
+    'compressor',
 )
 
 MIDDLEWARE_CLASSES = (

@@ -107,7 +107,7 @@ def senators(request):
 
 def projects(request):
     # iterator() doesn't supply count()
-    projects = list(Project.objects.all())
+    projects = list(Project.objects.filter(active=True))
     random.shuffle(projects)
     return render_to_response('projects.html', locals())
 

@@ -20,6 +20,14 @@
 <body>
   <div class="container">
     <div class="row header">
+      {% if request.user.is_authenticated %}
+      <div class="user-bar">
+        Logged in as {{ request.user.get_full_name }}
+        <div class="pull-right">
+          <a href="/edit_profile/">Edit my profile</a> | <a href="/logout/">Log out</a>
+        </div>
+      </div>
+      {% endif %}
       <a href="/"><img class="header-image" src="{% static 'images/rock.jpg' %}" alt="" /></a>
       <nav class="navbar navbar-default navbar-inverse navbar-main" role="navigation">
 
@@ -67,6 +75,7 @@
           </li>
           <li class="dropdown">
           <a href="/advocacy/">Advocacy</a>
+          <!--<a href="/advocacy/" class="dropdown-toggle" data-toggle="dropdown">Advocacy</a>-->
           <ul class="dropdown-menu">
             <li><a href="https://campusvoice.northwestern.edu/" target="_blank">Campus Voice</a></li>
             <li><a href="/office-hours/">Office Hours</a></li>
