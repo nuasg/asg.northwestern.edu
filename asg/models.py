@@ -63,6 +63,9 @@ class Person(models.Model):
         except:
             return None
 
+    def on_exec(self):
+        return self.positions.filter(on_exec_board=True).count() > 0
+
 
 class Position(models.Model):
     name = models.CharField(max_length=255)

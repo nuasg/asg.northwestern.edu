@@ -1,13 +1,15 @@
-from django.utils import timezone
-from django.core.paginator import Paginator
+import itertools
+import random
+from django.conf import settings
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
+from django.utils import timezone
 from models import *
 from forms import *
-import itertools
-import random
 
 def home(request):
     current_time = timezone.now()
@@ -114,6 +116,29 @@ def people(request, id):
     'Display the profile of a single person'
     person = get_object_or_404(Person, id=int(id))
     return render_to_response('person.html', locals())
+
+def login_user(request):
+    if request.method == 'GET':
+        auth_form = ASGAuthForm()
+    elif request.method == 'POST':
+        auth_form = ASGAuthForm(request.POST)
+        user = authenticate(username=request.POST['username'],
+                            password=request.POST['password'])
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                try:
+                    person = Person.objects.get(user=user)
+                except Person.DoesNotExist:
+                    # This is a superuser
+                    return redirect('/admin/')
+                return redirect(settings.LOGIN_REDIRECT_URL)
+            else:
+                login_error = 'Your account has been deactivated'
+        else:
+            login_error = 'Invalid username or password'
+    return render_to_response('login.html', locals(),
+                context_instance=RequestContext(request))
 
 @login_required
 def edit_profile(request):

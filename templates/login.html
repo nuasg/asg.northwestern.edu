@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Log in | Associated Student Government{% endblock title %}
+
+{% block head %}
+<style>
+.asteriskField {
+  display: none;
+}
+</style>
+{% endblock head %}
+{% if login_error %}
+<div class="row">
+  <div class="col-md-9">
+    <div class="alert alert-danger">{{ login_error }}</div>
+  </div>
+</div>
+{% endif %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-9">
+    <h1>Log in to the ASG website</h1>
+    {% crispy auth_form %}
+  </div>
+</div>
+{% endblock content %}
