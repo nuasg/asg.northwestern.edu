@@ -68,6 +68,7 @@ h1 {
 <script src="{% static 'fullcalendar/fullcalendar.min.js' %}"></script>
 <script src="{% static 'fullcalendar/gcal.js' %}"></script>
 <script>
+var width_threshold = 550;
 var calendar = $('.calendar').fullCalendar({
   eventSources: [
   {% for calendar in calendars %}
@@ -89,8 +90,28 @@ var calendar = $('.calendar').fullCalendar({
     } else {
       $('.loading').hide();
     }
-  }
+  },
+  windowResize: function(view) {
+    if ($(this).width() < width_threshold) {
+      $(this).fullCalendar('changeView', 'agendaDay')
+             .fullCalendar('option', 'height', 500);
+    } else {
+      $(this).fullCalendar('changeView', 'month');
+    }
+  },
+  titleFormat: {
+    /* Shorten title for day view */
+    agendaDay: 'dddd',
+  },
+  minTime: 7,
+  maxTime: 22,
+  firstHour: 10,
 });
+/* resize on load */
+if ($('.calendar').width() < width_threshold) {
+  $('.calendar').fullCalendar('changeView', 'agendaDay')
+                .fullCalendar('option', 'height', 500);
+}
 
 var display = {
 {% for calendar in calendars %}
