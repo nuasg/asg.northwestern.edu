@@ -16,7 +16,7 @@
     <h1>News</h1>
     {% for piece in news %}
     <div class="news">
-      <h3><a href="/news/{{ piece.slug }}/">{{ piece.title }}</a></h3>
+      <h3><a href="/news/{{ piece.date_posted|date:'Y' }}/{{ piece.date_posted|date:'m' }}/{{ piece.slug }}/">{{ piece.title }}</a></h3>
       <p class="text-muted">Posted on {{ piece.date_posted|date:"l, F d, Y" }}</p>
       {{ piece.message|safe }}
     </div>

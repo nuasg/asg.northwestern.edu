@@ -89,9 +89,9 @@ def list_news_links(request):
     news_links = p.page(page).object_list
     return render_to_response('list_news_links.html', locals())
 
-def news(request, slug):
+def news(request, year, month, slug):
     from_homepage = 'from_homepage' in request.GET
-    news = get_object_or_404(News, slug=slug)
+    news = get_object_or_404(News, date_posted__year=year, date_posted__month=month, slug=slug)
     return render_to_response('news.html', locals())
 
 def contact(request):

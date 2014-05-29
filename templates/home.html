@@ -13,17 +13,17 @@
     {% endif %}
 
     <div class="row">
-      <div class="col-md-5 col-md-push-7 col-lg-6 col-lg-push-6 news">
+      <div class="col-md-5 col-md-push-7 col-lg-6 col-lg-push-6 homepage-news">
         <h3>Latest News</h3>
         <ul class="no-bullets">
           {% for piece in news %}
           <li>
-          <p><a {% if piece.link_title_to %}target="_blank" href="{{ piece.link_title_to }}"{% else %}href="/news/{{ piece.slug }}/?from_homepage"{% endif %}>{{ piece.title }}</a></p>
-          <small>{{ piece.message|safe|truncatewords_html:30 }}{% if not piece.link_title_to %}<a href="/news/{{ piece.slug }}/?from_homepage">Read more &raquo;</a>{% endif %}</small>
+          <p><a {% if piece.link_title_to %}target="_blank" href="{{ piece.link_title_to }}"{% else %}href="/news/{{ piece.date_posted|date:'Y' }}/{{ piece.date_posted|date:'m' }}/{{ piece.slug }}/?from_homepage"{% endif %}>{{ piece.title }}</a></p>
+          <small>{{ piece.message|safe|truncatewords_html:30 }}{% if not piece.link_title_to %}<a href="/news/{{ piece.date_posted|date:'Y' }}/{{ piece.date_posted|date:'m' }}/{{ piece.slug }}/?from_homepage">Read more &raquo;</a>{% endif %}</small>
           </li>
           {% endfor %}
         </ul>
-        <p><a class="btn btn-default" href="/news/">Older news &raquo;</a></p>
+        <p><a class="btn btn-default" href="/news/">Older news &raquo;</a><a class="btn btn-default" href="/blog/">Blog posts &raquo;</a></p>
       </div>
 
       <div class="col-md-7 col-md-pull-5 col-lg-6 col-lg-pull-6 homepage-slideshow">

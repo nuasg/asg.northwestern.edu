@@ -24,6 +24,9 @@ class News(models.Model):
 
     date_posted = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        verbose_name_plural = 'News Articles'
+
     def __unicode__(self):
         return '%s: %s' % (self.date_posted.date(), self.title)
 
@@ -154,7 +157,7 @@ class NewsLink(models.Model):
         return '%s: %s via %s' % (self.date_published, self.name, self.get_source_display())
 
     class Meta:
-        verbose_name_plural = 'News Links'
+        verbose_name_plural = 'ASG in the Media'
         ordering = ['-date_published']
 
 

@@ -181,17 +181,20 @@ h1 {
 
 /* homepage stuff */
 /* tweak homepage news spacing */
-.news h3 {
+.homepage-news h3 {
     margin-top: 0;
 }
-.news p {
+.homepage-news p {
     margin-bottom: 0;
 }
-.news li {
+.homepage-news li {
     margin-bottom: 16px;
 }
-.news li > p {
+.homepage-news li > p {
     font-weight: bold;
+}
+a.btn + a.btn {
+    margin-left: 3px;
 }
 
 @media (max-width: 991px) {
