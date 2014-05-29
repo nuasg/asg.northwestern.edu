@@ -11,7 +11,7 @@
     <p><a class="btn btn-default" href="/news/">&laquo; Back to news</a></p>
     {% endif %}
     <h1>{{ news.title }}</h1>
-    <p class="text-muted">Posted {{ news.date_posted|date:"f a \o\n F d, Y" }}</p>
+    <p class="text-muted">Posted on {{ news.date_posted|date:"l, F d, Y" }}</p>
     {{ news.message|safe }}
   </div>
 </div>

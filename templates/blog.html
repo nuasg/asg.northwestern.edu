@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Blog | Associated Student Government{% endblock title %}
+
+{% block head %}
+<style>
+  .post {
+    overflow: hidden;
+  }
+  .post img[align="right"] {
+    margin-left: 14px;
+  }
+  .post img[align="left"] {
+    margin-right: 14px;
+  }
+  .post + .post{
+    margin-top: 30px;
+  }
+</style>
+{% endblock head %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-9">
+    <h1>Latest blog posts</h1>
+    <p><a href="http://nu-asg.tumblr.com/" target="_blank">To read older posts or to follow us, check out our Tumblr!</a></p>
+    <div class="blog">
+      {% for post in posts %}
+      <div class="post">
+        <h2><a href="{{ post.post_url }}" target="_blank">{{ post.title }}</a></h2>
+        <p class="text-muted">Posted on {{ post.date|date:"l, F d, Y" }}</p>
+        {{ post.body|safe }}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock content %}

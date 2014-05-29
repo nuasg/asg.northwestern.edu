@@ -24,6 +24,7 @@ urlpatterns = patterns('asg.views',
     url(r'^people/(?P<id>\d+)/([\w-]+/)?$', 'people'),
     url(r'^edit_profile/', 'edit_profile'),
     url(r'^login/', 'login_user'),
+    url(r'^blog/', 'blog'),
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )

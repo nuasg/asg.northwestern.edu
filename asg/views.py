@@ -1,5 +1,8 @@
+import datetime
 import itertools
+import os
 import random
+import requests
 import time
 from django.conf import settings
 from django.contrib.auth import authenticate, login
@@ -119,6 +122,17 @@ def people(request, id):
     'Display the profile of a single person'
     person = get_object_or_404(Person, id=int(id))
     return render_to_response('person.html', locals())
+
+TUMBLR_API_KEY = os.environ['TUMBLR_API_KEY']
+def parse_post_date(post):
+    post['date'] = datetime.datetime.strptime(post['date'], '%Y-%m-%d %H:%M:%S GMT')
+
+def blog(request):
+    api_url = 'http://api.tumblr.com/v2/blog/nu-asg.tumblr.com/posts/text?api_key=%s' % TUMBLR_API_KEY
+    response = requests.get(api_url)
+    posts = response.json()['response']['posts']
+    map(parse_post_date, posts)
+    return render_to_response('blog.html', locals())
 
 def login_user(request):
     if request.method == 'GET':
