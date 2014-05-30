@@ -178,9 +178,12 @@ class GoogleCalendar(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
+        # Switch to HTTPS urls
+        parsed_url = urlparse.urlparse(urllib.unquote(self.xml_feed_url))
+        new_url = parsed_url._replace(scheme='https')
+        self.xml_feed_url = urlparse.urlunparse(new_url)
         # Extract Google Calendar ID from XML feed URL
-        path = urlparse.urlparse(urllib.unquote(self.xml_feed_url)).path
-        self.calendar_id = path.split('/')[3]
+        self.calendar_id = parsed_url.path.split('/')[3]
         super(GoogleCalendar, self).save(*args, **kwargs)
 
 min_slide_size = '640x400'
