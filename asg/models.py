@@ -25,7 +25,7 @@ class News(models.Model):
     date_posted = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name_plural = 'News Articles'
+        verbose_name_plural = 'News Updates'
 
     def __unicode__(self):
         return '%s: %s' % (self.date_posted.date(), self.title)
@@ -183,8 +183,10 @@ class GoogleCalendar(models.Model):
         self.calendar_id = path.split('/')[3]
         super(GoogleCalendar, self).save(*args, **kwargs)
 
+min_slide_size = '640x400'
 class HomepageSlide(models.Model):
-    image = models.ImageField(upload_to='homepage_slides')
+    image = ImageCropField(upload_to='homepage_slides', help_text='An image with minimum %s resolution' % min_slide_size)
+    image_crop = ImageRatioField('image', min_slide_size, size_warning=True)
     link = models.URLField(blank=True)
     caption = models.CharField(max_length=255, blank=True)
     active = models.BooleanField(default=True)

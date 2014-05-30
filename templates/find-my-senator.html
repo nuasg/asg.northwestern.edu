@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Find my senator | Associated Student Government{% endblock title %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'tablesaw/tablesaw.stackonly.css' %}">
+{% endblock head %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-12">
+    <h1>Find my senator</h1>
+    <p><input class="senator-search form-control" placeholder="Filter by name or group" autofocus></p>
+    <table class="table senator-table tablesaw tablesaw-stack" data-mode="stack">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Groups</th>
+          <th>Email</th>
+          <th>Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for senator in senators %}
+        <tr>
+          <td class="searchable"><a href="/people/{{ senator.id }}/{{ senator.full_name|slugify }}/">{{ senator.full_name }}</a></td>
+          <td class="searchable">{{ senator.groups_represented }}</td>
+          <td><a href="mailto:{{ senator.email }}">Email {{ senator.first_name }}</a></td>
+          <td><a href="#">Make {{ senator.first_name }} my senator</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script src="{% static 'tablesaw/tablesaw.stackonly.js' %}"></script>
+<script>
+/* via StackOverflow */
+var $rows = $('.senator-table tbody tr');
+var filterTable = function() {
+  var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+
+  $rows.show().filter(function() {
+    var text = $(this).children('.searchable').text().replace(/\s+/g, ' ').toLowerCase();
+    return !~text.indexOf(val);
+  }).hide();
+}
+$('.senator-search').keyup(filterTable);
+
+/* Filter using previous value, e.g. when user hits back from profile */
+filterTable.call($('.senator-search'));
+</script>
+{% endblock scripts %}

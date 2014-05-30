@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
-{% load staticfiles %}
+{% load staticfiles cropping %}
+
 {% block title %}Northwestern Associated Student Government{% endblock title %}
+
 {% block content %}
-    {% if alerts.count > 0 %}
+    {% if alerts.count %}
     <div class="row">
       <div class="col-md-12">
         {% for alert in alerts %}
@@ -19,7 +21,7 @@
           {% for piece in news %}
           <li>
           <p><a {% if piece.link_title_to %}target="_blank" href="{{ piece.link_title_to }}"{% else %}href="/news/{{ piece.date_posted|date:'Y' }}/{{ piece.date_posted|date:'m' }}/{{ piece.slug }}/?from_homepage"{% endif %}>{{ piece.title }}</a></p>
-          <small>{{ piece.message|safe|truncatewords_html:30 }}{% if not piece.link_title_to %}<a href="/news/{{ piece.date_posted|date:'Y' }}/{{ piece.date_posted|date:'m' }}/{{ piece.slug }}/?from_homepage">Read more &raquo;</a>{% endif %}</small>
+            <small>{{ piece.message|safe|truncatewords_html:30 }}{% if not piece.link_title_to %}<a href="/news/{{ piece.date_posted|date:'Y' }}/{{ piece.date_posted|date:'m' }}/{{ piece.slug }}/?from_homepage">Read more &raquo;</a>{% endif %}</small>
           </li>
           {% endfor %}
         </ul>
@@ -30,8 +32,8 @@
         <ul class="rslides">
           {% for slide in slides %}
           <li>
-          {% if slide.link %}<a href="{{ slide.link }}">{% endif %}
-          <img src="{{ MEDIA_URL }}{{ slide.image }}" alt="">
+          {% if slide.link %}<a href="{{ slide.link }}" target="_blank">{% endif %}
+            <img src="{% cropped_thumbnail slide image_crop %}" alt="">
           {% if slide.caption %}<p class="caption">{{ slide.caption }}</p>{% endif %}
           {% if slide.link %}</a>{% endif %}
           </li>

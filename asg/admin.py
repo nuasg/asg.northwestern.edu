@@ -27,8 +27,9 @@ class LegislationAdmin(admin.ModelAdmin):
         'status': admin.VERTICAL,
     }
 
-class HomepageSlideAdmin(admin.ModelAdmin):
+class HomepageSlideAdmin(ImageCroppingMixin, admin.ModelAdmin):
     list_display = ('caption', 'order', 'active')
+    ordering = ('-active', 'order', 'caption')
 
 class ApprovedUserAdmin(admin.ModelAdmin):
     list_display = ('netid', 'position')

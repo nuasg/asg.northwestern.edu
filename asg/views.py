@@ -108,6 +108,10 @@ def senators(request):
     senators = Person.objects.filter(positions__name='Senator')
     return render_to_response('senators.html', locals())
 
+def find_my_senator(request):
+    senators = Person.objects.filter(positions__name='Senator')
+    return render_to_response('find-my-senator.html', locals())
+
 def projects(request):
     # iterator() doesn't supply count()
     projects = list(Project.objects.filter(active=True))
