@@ -1,17 +1,23 @@
 {% extends 'base.html' %}
 {% load cropping %}
+{% load staticfiles %}
 
 {% block title %}Senators | Associated Student Government{% endblock title %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'tablesaw/tablesaw.stackonly.css' %}">
+{% endblock head %}
 
 {% block content %}
 <div class="row">
   <div class="col-md-12">
     <h1>Senators</h1>
-    <p>Your student representatives.</p>
+    <p>Your student representatives. <a href="#" class="toggle-view">Switch to table view</a></p>
+    <p><input class="senator-search form-control" placeholder="Filter by name or group" autofocus></p>
   </div>
 </div>
 
-<div class="row">
+<div class="row senator-grid">
 {% for senator in senators %}
 <a href="/people/{{ senator.id }}/{{ senator.full_name|slugify }}/" class="col-lg-2 col-sm-3 col-xs-6 people-grid">
   {% if senator.photo %}
@@ -19,7 +25,7 @@
   {% else %}
   <img class="photo" src="/uploads/profile_photos/default.jpg"><br>
   {% endif %}
-  <div class="meta">
+  <div class="meta searchable">
     <div class="name">{{ senator.full_name }}</div>
     <div class="position-name">{{ senator.groups_represented }}</div>
   </div>
@@ -27,12 +33,68 @@
 {% endfor %}
 </div>
 
+<div class="row">
+  <div class="col-md-12">
+    <table class="table senator-table tablesaw tablesaw-stack" data-mode="stack" style="display: none;">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Groups</th>
+          <th>Email</th>
+          <th>Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for senator in senators %}
+        <tr>
+          <td class="searchable"><a href="/people/{{ senator.id }}/{{ senator.full_name|slugify }}/">{{ senator.full_name }}</a></td>
+          <td class="searchable">{{ senator.groups_represented }}</td>
+          <td><a href="mailto:{{ senator.email }}">Email {{ senator.first_name }}</a></td>
+          <td><a href="#">Make {{ senator.first_name }} my senator</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
 {% endblock content %}
 
 
 {% block scripts %}
+<script src="{% static 'tablesaw/tablesaw.stackonly.js' %}"></script>
 <script>
-  // Initialize popovers - bootstrap requires this for performance reasons
-  $('a[data-toggle="popover"]').popover();
+var mode = 'grid';
+
+$('.toggle-view').click(function() {
+  if (mode == 'grid') {
+    $('.senator-grid').hide()
+    $('.senator-table').show()
+    mode = 'table';
+    $(this).html('Switch to grid view');
+  } else {
+    $('.senator-grid').show()
+    $('.senator-table').hide()
+    mode = 'grid';
+    $(this).html('Switch to table view');
+  }
+});
+
+/* via StackOverflow */
+var $rows = $('.senator-table tbody tr');
+var $rows2 = $('.senator-grid .people-grid');
+var $rows = $.merge($rows, $rows2);
+var filterTable = function() {
+  var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+
+  $rows.show().filter(function() {
+    var text = $(this).children('.searchable').text().replace(/\s+/g, ' ').toLowerCase();
+    return !~text.indexOf(val);
+  }).hide();
+}
+$('.senator-search').keyup(filterTable);
+
+/* Filter using previous value, e.g. when user hits back from profile */
+filterTable.call($('.senator-search'));
 </script>
 {% endblock scripts %}
