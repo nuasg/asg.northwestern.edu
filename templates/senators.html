@@ -80,14 +80,13 @@ $('.toggle-view').click(function() {
   }
 });
 
-/* via StackOverflow */
-var $rows = $('.senator-table tbody tr');
-var $rows2 = $('.senator-grid .people-grid');
-var $rows = $.merge($rows, $rows2);
+var part1 = $('.senator-table tbody tr');
+var part2 = $('.senator-grid .people-grid');
+var toFilter = $.merge(part1, part2);
 var filterTable = function() {
   var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
 
-  $rows.show().filter(function() {
+  toFilter.show().filter(function() {
     var text = $(this).children('.searchable').text().replace(/\s+/g, ' ').toLowerCase();
     return !~text.indexOf(val);
   }).hide();
