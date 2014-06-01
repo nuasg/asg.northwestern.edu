@@ -119,6 +119,9 @@ class Project(models.Model):
     def __unicode__(self):
         return '%s: %s' % (self.committees.first(), self.name)
 
+    def first_committee(self):
+        return self.committees.first()
+
 
 
 LEGISLATION_STATUSES = [
@@ -139,6 +142,7 @@ class Legislation(models.Model):
         return '%s: %s' % (self.code, self.name)
 
     class Meta:
+        verbose_name_plural = 'Legislation'
         ordering = ['-status_date', '-code']
 
     

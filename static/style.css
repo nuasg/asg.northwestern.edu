@@ -228,6 +228,11 @@ ul.in-news small {
 }
 
 
+/* tablesaw */
+.tablesaw-stack tbody tr td {
+    border-top: none;
+}
+
 
 /* sitewide forms */
 input {

@@ -17,7 +17,7 @@
   <div class="col-sm-6 project">
     <h3><a href="/projects/{{ project.id }}/{{ project.name|slugify }}/">{{ project.name }}</a></h3>
     <p class="small">{% for committee in project.committees.iterator %}{{ committee.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
-    {{ project.description|truncatewords:40 }}
+    {{ project.description|truncatewords:23 }}
   </div>
 {% if forloop.counter0|add:1|divisibleby:2 %}
 </div>

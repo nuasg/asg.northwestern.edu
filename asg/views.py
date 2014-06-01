@@ -105,11 +105,11 @@ def cabinet(request):
     return render_to_response('cabinet.html', locals())
 
 def senators(request):
-    senators = Person.objects.filter(positions__name='Senator')
+    senators = Person.objects.filter(positions__name='Senator').order_by('groups_represented')
     return render_to_response('senators.html', locals())
 
 def find_my_senator(request):
-    senators = Person.objects.filter(positions__name='Senator')
+    senators = Person.objects.filter(positions__name='Senator').order_by('groups_represented')
     return render_to_response('find-my-senator.html', locals())
 
 def projects(request):

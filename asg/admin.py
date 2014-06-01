@@ -21,6 +21,8 @@ class ResourceAdmin(admin.ModelAdmin):
         'type': admin.VERTICAL,
         'users': admin.VERTICAL,
     }
+    ordering = ('-is_active', '-users', 'type', 'name')
+    list_display = ('name', 'type', 'users', 'is_active')
 
 class LegislationAdmin(admin.ModelAdmin):
     radio_fields = {
@@ -31,6 +33,10 @@ class HomepageSlideAdmin(ImageCroppingMixin, admin.ModelAdmin):
     list_display = ('caption', 'order', 'active')
     ordering = ('-active', 'order', 'caption')
 
+class ProjectAdmin(admin.ModelAdmin):
+    list_display = ('name', 'first_committee', 'active')
+    ordering = ('-active', 'committees', 'name')
+
 class ApprovedUserAdmin(admin.ModelAdmin):
     list_display = ('netid', 'position')
 
@@ -40,7 +46,7 @@ admin.site.register(News, NewsAdmin)
 admin.site.register(Person, PersonAdmin)
 admin.site.register(Position)
 admin.site.register(Committee)
-admin.site.register(Project)
+admin.site.register(Project, ProjectAdmin)
 admin.site.register(Legislation, LegislationAdmin)
 admin.site.register(NewsLink)
 admin.site.register(GoogleCalendar, GoogleCalendarAdmin)
