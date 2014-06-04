@@ -53,4 +53,4 @@ class Command(BaseCommand):
                 au, _ = ApprovedUser.objects.get_or_create(netid=ldap_info['uid'][0],
                                                 defaults={'position': position})
 
-            print 'Added %d senators' % people_added
+            print 'Added %d new senators' % people_added

@@ -71,7 +71,7 @@ def list_news(request):
 
 legislation_per_page = 10
 def list_legislation(request):
-    all_legislation = Legislation.objects.order_by('-code')
+    all_legislation = Legislation.objects.order_by('-status_date', '-code')
     p = Paginator(all_legislation, legislation_per_page)
     last_page = p.num_pages
     pages = xrange(1, last_page+1)
@@ -113,6 +113,10 @@ def projects(request):
     projects = list(Project.objects.filter(active=True))
     random.shuffle(projects)
     return render_to_response('projects.html', locals())
+
+def committees(request):
+    committees = Committee.objects.filter(show_in_list=True)
+    return render_to_response('committees.html', locals())
 
 def view_project(request, id):
     project = get_object_or_404(Project, id=int(id))

@@ -9,10 +9,10 @@
     <h1>{{ project.name }}</h1>
     <p>{% for committee in project.committees.iterator %}{{ committee.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
     {% if project.primary_contact %}
-    <p>Primary contact: <a href="mailto:{{ project.primary_contact.full_name }}">{{ project.primary_contact.full_name }}</a></p>
+    <p>Primary contact: <a href="/people/{{ project.primary_contact.id }}/{{ project.primary_contact.full_name|slugify }}/">{{ project.primary_contact.full_name }}</a></p>
     {% endif %}
     {% if project.members.count > 1 %}
-    <p>Members:{% for member in project.members.iterator %}{{ member.full_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+    <p>Members: {% for member in project.members.iterator %}<a href="/people/{{ member.id }}/{{ member.full_name|slugify }}/">{{ member.full_name }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</p>
     {% endif %}
     {{ project.description|safe }}
   </div>

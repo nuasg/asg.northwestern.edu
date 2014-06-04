@@ -5,6 +5,7 @@ from models import *
 
 class PageAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
+    ordering = ('title',)
 
 class NewsAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}

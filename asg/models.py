@@ -245,10 +245,11 @@ class Resource(models.Model):
 
     class Meta:
         verbose_name_plural = 'Resources and Services'
+        ordering = ['name',]
 
 
 class Upload(models.Model):
-    file = models.FileField(upload_to='uploads')
+    file = models.FileField(upload_to='user')
 
     def __unicode__(self):
         return unicode(self.file)
@@ -256,7 +257,7 @@ class Upload(models.Model):
 
 class ApprovedUser(models.Model):
     netid = models.CharField(max_length=6)
-    position = models.ForeignKey('Position')
+    position = models.ForeignKey('Position', blank=True, null=True)
 
     def __unicode__(self):
         return unicode(self.netid)

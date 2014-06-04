@@ -13,6 +13,9 @@
         {% if person.is_senator %}
         <p>Represents {{ person.groups_represented }}</p>
         {% endif %}
+        {% if person.committee_set.count > 0 %}
+        <p>{% for committee in person.committee_set.iterator %}{{ committee.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+        {% endif %}
         {% with person.main_position as main_position %}
         {% if main_position.on_exec_board and main_position.email %}
         <p><a href="mailto:{{ main_position.email }}">{{ main_position.email }}</a></p>

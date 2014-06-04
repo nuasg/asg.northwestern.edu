@@ -22,10 +22,13 @@
     <div class="row header">
       {% if request.user.is_authenticated %}
       <div class="user-bar">
+        <div class="col-sm-8">
         Logged in as {{ request.user.get_full_name }}
-        <div class="pull-right">
+        </div>
+        <div class="col-sm-4 text-right">
           <a href="/edit_profile/">Edit my profile</a> | <a href="/logout/">Log out</a>
         </div>
+        <div class="clearfix"></div>
       </div>
       {% endif %}
       <a href="/"><img class="header-image" src="{% static 'images/rock.jpg' %}" alt="" /></a>
@@ -50,10 +53,11 @@
           <a href="/about/">About ASG</a>
           <ul class="dropdown-menu pull-center">
             <li><a href="/mission/">Mission</a></li>
-            <li><a href="/constitution/">Constitution</a></li>
             <li><a href="/get-involved/">Get Involved</a></li>
             <li><a href="/contact/">Contact Us</a></li>
             <li><a href="/blog/">ASG's Blog</a></li>
+            <li><a href="/constitution/">Constitution</a></li>
+            <li><a href="/code/">Code</a></li>
           </ul>
           </li>
           <li class="dropdown">
@@ -64,7 +68,7 @@
             <li class="divider"></li>
             <li><a href="/legislation/">Legislation</a></li>
             <li><a href="/senators/">Senators</a></li>
-            <li><a href="http://bit.ly/ASG-Senate-Minutes" target="_blank">Minutes</a></li>
+            <li><a href="https://drive.google.com/folderview?id=0B4gULrpKf5KHaEJZSUhvbll0MjA&usp=drive_web#list" target="_blank">Minutes</a></li>
           </ul>
           </li>
           <li>

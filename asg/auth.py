@@ -30,11 +30,12 @@ class ASGLDAPBackend(LDAPBackend):
 
         # Put user in the right group
         user.is_staff = True
-        if approval.position.name == 'Senator':
-            user.groups.add(Group.objects.get(name='Senators'))
-        elif approval.position.on_exec_board or\
-                approval.position.senate_leadership:
-            user.groups.add(Group.objects.get(name='Exec Board Members'))
+        if approval.position:
+            if approval.position.name == 'Senator':
+                user.groups.add(Group.objects.get(name='Senators'))
+            elif approval.position.on_exec_board or\
+                    approval.position.senate_leadership:
+                user.groups.add(Group.objects.get(name='Exec Board Members'))
         else:
             user.groups.add(Group.objects.get(name='Committee Members'))
 
@@ -51,7 +52,8 @@ class ASGLDAPBackend(LDAPBackend):
             person.save()
 
         # Add position to Person object
-        person.positions.add(approval.position)
+        if approval.position:
+            person.positions.add(approval.position)
 
         return (user, True)
 

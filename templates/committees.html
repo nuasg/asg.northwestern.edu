@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Committees | Associated Student Government{% endblock title %}
+
+{% block head %}
+<style>
+.lead {
+  margin-bottom: 4px;
+}
+</style>
+{% endblock head %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-9">
+    <h1>Committees</h1>
+    {% for committee in committees %}
+    <h2>{{ committee.name }}</h2>
+    <p>{{ committee.description|linebreaks }}</p>
+    {% with committee.position_set.first.person_set.first as leader %}
+    {% if leader %}
+    <p>Head: <a href="/people/{{ leader.id }}/{{ leader.full_name|slugify }}/">{{ leader.full_name }}</a></p>
+    {% endif %}
+    {% endwith %}
+    {% if committee.members.count > 0 %}
+    <p>Members:
+    {% for person in committee.members.iterator %}
+    <a href="/people/{{ person.id }}/{{ person.full_name|slugify }}/">{{ person.full_name }}</a>{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+    </p>
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}
