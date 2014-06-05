@@ -17,12 +17,12 @@
 </div>
 <div class="row">
   <div class="col-md-10">
-    {% if person.on_exec %}
     <div class="pull-right">
       <a class="btn btn-default" href="/people/{{ person.id }}/{{ person.full_name|slugify }}/">View my profile</a>
+      {% if person.on_exec %}
       <a class="btn btn-default" href="/admin/">Go to Admin</a>
+      {% endif %}
     </div>
-    {% endif %}
     <h1>Edit my profile</h1>
     {% crispy person_form %}
   </div>

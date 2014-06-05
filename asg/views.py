@@ -115,7 +115,8 @@ def projects(request):
     return render_to_response('projects.html', locals())
 
 def committees(request):
-    committees = Committee.objects.filter(show_in_list=True)
+    committees = list(Committee.objects.filter(show_in_list=True))
+    random.shuffle(committees)
     return render_to_response('committees.html', locals())
 
 def view_project(request, id):
