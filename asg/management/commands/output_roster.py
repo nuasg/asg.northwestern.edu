@@ -17,16 +17,20 @@ class Command(BaseCommand):
         # or who serve on a committee
         people = Person.objects.filter(Q(positions__isnull=False) |\
                                     Q(committee__isnull=False))\
+                                    .distinct()\
                                     .order_by('last_name', 'first_name')
 
         # Write header row
         writer.writerow(('Name', 'Email', 'School', 'Position', 'Committee 1', 'Committee 2', 'Committee 3'))
 
         for person in people:
+            # Some people haven't ever logged in, and if this is the case,
+            # then person.user will be null. However, if they have,
+            # we want to use their NetID since they might have changed
+            # their email address.
             if person.user:
                 info = get_ldap_info(netid=person.user.username)
             else:
-                # Some people haven't ever logged in
                 info = get_ldap_info(email=person.email)
             school = info['nuCurriculumOnly'][0]
             committees = person.committee_set.all()
