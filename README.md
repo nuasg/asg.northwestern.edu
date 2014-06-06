@@ -8,6 +8,13 @@ The following commands delete all existing members before adding the ones in the
 - `./manage.py update_senators SENATORS.csv` updates the list of Senators on the Senators page. `SENATORS.csv` should be a CSV file without headers containing two columns: groups represented, personal Northwestern email
 - `./manage.py update_committees COMMITTEE_MEMBERS.csv` first column is committee name, second column is the official Northwestern email of the the committee member. Make sure the committee names are consistent with the ones already on the website (and are capitalized correctly)
 
+Environment variables
+---------------------
+- NU_LDAP_URL
+- NU_LDAP_PASSWORD
+The resource location and application password that enables the API to authenticate NetIDs and passwords.
+- TUMBLR_API_KEY
+Key used to retrieve blog posts from ASG's Tumblr.
 
 Troubleshooting
 ---------------
