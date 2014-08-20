@@ -27,6 +27,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -170,6 +171,19 @@ SOUTH_MIGRATION_MODULES = {
 
 # Django crispy forms settings
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.tz',
+    'django.contrib.messages.context_processors.messages',
+    # add context processor for Django suit - new admin interface
+    'django.core.context_processors.request',
+)
 
 
 

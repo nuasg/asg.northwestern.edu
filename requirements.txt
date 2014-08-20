@@ -11,6 +11,7 @@ django-compressor==1.4
 django-crispy-forms==1.4.0
 django-image-cropping==0.8.2
 django-recurrence==1.0.1
+django-suit==0.2.9
 django-tinymce==1.5.2
 easy-thumbnails==2.0.1
 psycopg2==2.5.2
