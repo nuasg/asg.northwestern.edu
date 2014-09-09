@@ -26,6 +26,8 @@ urlpatterns = patterns('asg.views',
     url(r'^edit_profile/', 'edit_profile'),
     url(r'^login/', 'login_user'),
     url(r'^blog/', 'blog'),
+    url(r'^tools/', 'exec_tools'),
+    url(r'^export_roster/', 'export_roster'),
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )

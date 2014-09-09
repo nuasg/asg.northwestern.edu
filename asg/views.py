@@ -3,14 +3,17 @@ import itertools
 import os
 import random
 import requests
+import StringIO
 import time
 from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.core.management import call_command
 from django.core.paginator import Paginator
+from django.core.servers.basehttp import FileWrapper
 from django.db.models import Q
-from django.http import HttpResponse
-from django.shortcuts import render_to_response, get_object_or_404, redirect
+from django.http import StreamingHttpResponse
+from django.shortcuts import render_to_response, get_object_or_404, redirect, render
 from django.template import RequestContext
 from django.utils import timezone
 from models import *
@@ -180,3 +183,25 @@ def edit_profile(request):
         person_form = PersonForm(instance=person)
     return render_to_response('edit_profile.html', locals(),
                 context_instance=RequestContext(request))
+
+# For views limited to ASG exec members
+def exec_required(view_fn):
+    def _view_fn(*args, **kwargs):
+        if args[0].user.groups.filter(name='Exec Board Members').count() > 0:
+            return view_fn(*args, **kwargs)
+        raise Http404
+    return _view_fn
+
+@exec_required
+def exec_tools(request):
+    committees = Committee.objects.iterator()
+    return render(request, 'exec_tools.html', locals())
+
+@exec_required
+def export_roster(request):
+    roster = StringIO.StringIO()
+    call_command('output_roster', output_dest=roster)
+    roster.seek(0) # rewind StringIO to beginning (like a file)
+    response = StreamingHttpResponse(FileWrapper(roster), content_type='application/csv')
+    response['Content-Disposition'] = 'attachment; filename=asg_roster.csv'
+    return response

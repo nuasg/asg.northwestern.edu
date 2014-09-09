@@ -10,8 +10,13 @@ class Command(BaseCommand):
     help = 'Outputs CSV data for all people in ASG'
 
     def handle(self, *args, **options):
-        # Write results to stdout
-        writer = csv.writer(sys.stdout)
+        if 'output_dest' in options:
+            # The value passed using output_dest might be a file 
+            # or StringIO object
+            writer = csv.writer(options['output_dest'])
+        else:
+            # Write results to stdout by default
+            writer = csv.writer(sys.stdout)
 
         # Query: retrieve all people who are Senators/Exec members,
         # or who serve on a committee
@@ -21,7 +26,7 @@ class Command(BaseCommand):
                                     .order_by('last_name', 'first_name')
 
         # Write header row
-        writer.writerow(('Name', 'Email', 'School', 'Position', 'Committee 1', 'Committee 2', 'Committee 3'))
+        writer.writerow(('Name', 'Email', 'School', 'Position', 'Groups represented', 'Committee 1', 'Committee 2', 'Committee 3'))
 
         for person in people:
             # Some people haven't ever logged in, and if this is the case,
@@ -37,5 +42,5 @@ class Command(BaseCommand):
             committee_1 = committees[0] if len(committees) > 0 else ''
             committee_2 = committees[1] if len(committees) > 1 else ''
             committee_3 = committees[2] if len(committees) > 2 else ''
-            writer.writerow((person.full_name(), person.email, school, person.main_position(), committee_1, committee_2, committee_3))
+            writer.writerow((person.full_name(), person.email, school, person.main_position(), person.groups_represented, committee_1, committee_2, committee_3))
 

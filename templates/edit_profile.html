@@ -20,6 +20,7 @@
     <div class="pull-right">
       <a class="btn btn-default" href="/people/{{ person.id }}/{{ person.full_name|slugify }}/">View my profile</a>
       {% if person.on_exec %}
+      <a class="btn btn-default" href="/tools/">Exec tools</a>
       <a class="btn btn-default" href="/admin/">Go to Admin</a>
       {% endif %}
     </div>
