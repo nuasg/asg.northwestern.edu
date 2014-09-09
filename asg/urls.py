@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from views import *
 admin.autodiscover()
 
 urlpatterns = patterns('asg.views',
@@ -28,6 +29,8 @@ urlpatterns = patterns('asg.views',
     url(r'^blog/', 'blog'),
     url(r'^tools/', 'exec_tools'),
     url(r'^export_roster/', 'export_roster'),
+    url(r'^pdfs/projects/', ProjectsPDF.as_view()),
+    url(r'^pdfs/resources/', ResourcesPDF.as_view()),
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )

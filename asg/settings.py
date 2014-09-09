@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'image_cropping',
     'crispy_forms',
     'compressor',
+    'easy_pdf',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -73,7 +74,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Chicago'
 
 USE_I18N = True
 

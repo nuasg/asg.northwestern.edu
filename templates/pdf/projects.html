@@ -1,0 +1,56 @@
+{% extends 'easy_pdf/base.html' %}
+
+{% block extra_style %}
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-size: 10pt;
+}
+
+/* for formatting documentation see
+ * https://github.com/chrisglass/xhtml2pdf/blob/master/doc/usage.rst
+ */
+
+h1.title {
+  font-size: 19pt;
+}
+.title,
+.project p {
+  margin: 0;
+}
+.project h3 {
+  margin: 20pt 0 0;
+  font-size: 12pt;
+}
+</style>
+{% endblock extra_style %}
+
+{% block content %}
+<div id="content">
+  <div class="main">
+    <div>Generated {{ today }}</div>
+    <h2 class="title">Associated Student Government</h2>
+    <h1 class="title">Project summaries</h1>
+    {% for project in projects %}
+    <div class="project">
+      <h3>{{ project.name }}</h3>
+
+      {% if project.primary_contact %}
+      <div><strong>Primary contact:</strong> {{ project.primary_contact.full_name }} ({{ project.primary_contact.email }})</div>
+      {% endif %}
+
+      <div><strong>Committee(s):</strong> {% for committee in project.committees.iterator %}{{ committee.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</div>
+
+      {% if project.members.count > 0 %}
+      <div><strong>Members:</strong> {% for member in project.members.iterator %}{{ member.full_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</div>
+      {% endif %}
+
+      <p>{{ project.description }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

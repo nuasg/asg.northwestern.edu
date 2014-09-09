@@ -16,6 +16,7 @@ from django.http import StreamingHttpResponse
 from django.shortcuts import render_to_response, get_object_or_404, redirect, render
 from django.template import RequestContext
 from django.utils import timezone
+from easy_pdf.views import PDFTemplateView
 from models import *
 from forms import *
 
@@ -205,3 +206,28 @@ def export_roster(request):
     response = StreamingHttpResponse(FileWrapper(roster), content_type='application/csv')
     response['Content-Disposition'] = 'attachment; filename=asg_roster.csv'
     return response
+
+class ProjectsPDF(PDFTemplateView):
+    template_name = 'pdf/projects.html'
+
+    def get_context_data(self, **kwargs):
+        return super(ProjectsPDF, self).get_context_data(
+            pagesize='letter',
+            title='ASG Projects summary',
+            projects=Project.objects.filter(active=True).iterator(),
+            today=timezone.now(),
+            **kwargs
+        )
+
+class ResourcesPDF(PDFTemplateView):
+    template_name = 'pdf/resources.html'
+
+    def get_context_data(self, **kwargs):
+        return super(ResourcesPDF, self).get_context_data(
+            pagesize='letter',
+            title='ASG Resources summary',
+            resources=Resource.objects.filter(is_active=True).iterator(),
+            today=timezone.now(),
+            **kwargs
+        )
+

@@ -1,0 +1,53 @@
+{% extends 'easy_pdf/base.html' %}
+
+{% block extra_style %}
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-size: 10pt;
+}
+
+/* for formatting documentation see
+ * https://github.com/chrisglass/xhtml2pdf/blob/master/doc/usage.rst
+ */
+
+h1.title {
+  font-size: 19pt;
+}
+.title,
+.resource p {
+  margin: 0;
+}
+.resource h3 {
+  margin: 20pt 0 0;
+  font-size: 12pt;
+}
+</style>
+{% endblock extra_style %}
+
+{% block content %}
+<div id="content">
+  <div class="main">
+    <div>Generated {{ today }}</div>
+    <h2 class="title">Associated Student Government</h2>
+    <h1 class="title">Resources for students and student groups</h1>
+    {% for resource in resources %}
+    <div class="resource">
+      <h3>{{ resource.name }}</h3>
+      <div>A {{ resource.get_type_display|lower }} for {{ resource.get_users_display|lower }}</div>
+      {% if resource.link %}
+      <div><strong>Link: </strong> {{ resource.link }}</div>
+      {% endif %}
+      {% if resource.page %}
+      <div><strong>Link: </strong> https://asg.northwestern.edu/{{ resource.page.slug }}/</div>
+      {% endif %}
+
+      <p>{{ resource.description }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
