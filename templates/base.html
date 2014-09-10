@@ -25,10 +25,15 @@
     <div class="row header">
       {% if request.user.is_authenticated %}
       <div class="user-bar">
-        <div class="col-sm-8">
+        <div class="col-sm-5">
         Logged in as {{ request.user.get_full_name }}
         </div>
-        <div class="col-sm-4 text-right">
+        <div class="col-sm-7 text-right">
+          {% with person=request.user.person_set.first %}
+          {% if person.on_exec %}
+          <a href="/tools/">Exec tools</a> | <a href="/admin/">Admin</a> |
+          {% endif %}
+          {% endwith %}
           <a href="/edit_profile/">Edit my profile</a> | <a href="/logout/">Log out</a>
         </div>
         <div class="clearfix"></div>
