@@ -28,6 +28,8 @@
         {% endif %}
         {% if request.user == person.user %}
         <a class="btn btn-default person-edit" href="/edit_profile/">Edit my profile</a>
+        {% elif person.is_senator %}
+        <a href="/select-senator/?senator_id={{ person.id }}">Make {{ person.first_name }} my senator</a>
         {% endif %}
       </div>
       {% if person.photo %}

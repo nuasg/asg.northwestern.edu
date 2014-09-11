@@ -29,8 +29,7 @@ def home(request):
     news_links = NewsLink.objects.order_by('-date_published')[:5]
     slides = HomepageSlide.objects.filter(active=True)
     calendars = GoogleCalendar.objects.filter(show_on_homepage=True)
-    return render_to_response('home.html', locals(),
-                context_instance=RequestContext(request))
+    return render(request, 'home.html', locals())
 
 def page(request, page_slug):
     page = get_object_or_404(Page, slug=page_slug)
@@ -185,12 +184,25 @@ def edit_profile(request):
     return render_to_response('edit_profile.html', locals(),
                 context_instance=RequestContext(request))
 
+
+# When a visitor selects a senator as "My senator"
+def select_senator(request):
+    if 'senator_id' in request.GET:
+        request.session['my_senator'] = int(request.GET['senator_id'])
+    elif 'clear' in request.GET:
+        request.session.pop('my_senator', None)
+    return redirect('/senators/#table')
+
+
+
+
+
 # For views limited to ASG exec members
 def exec_required(view_fn):
     def _view_fn(*args, **kwargs):
         if args[0].user.groups.filter(name='Exec Board Members').count() > 0:
             return view_fn(*args, **kwargs)
-        raise Http404
+        return redirect('/login/')
     return _view_fn
 
 @exec_required

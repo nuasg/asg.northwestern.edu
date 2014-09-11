@@ -437,6 +437,91 @@ input {
 
 
 
+
+
+/* my senator */
+@media (max-width: 767px) {
+    .my-senator-desktop {
+        display: none;
+    }
+    .my-senator-mobile {
+        display: block;
+        background: #333;
+        color: #fff;
+        text-align: center;
+    }
+    .my-senator-mobile a {
+        color: #fff;
+    }
+}
+@media (min-width: 768px) {
+    .header-top {
+        position: relative;
+    }
+    .my-senator-mobile {
+        display: none;
+    }
+    .my-senator-desktop {
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        height: 100%;
+        color: white;
+    }
+    .my-senator-desktop img {
+        max-height: 100%;
+        width: auto;
+    }
+    .my-senator-desktop .title,
+    .my-senator-desktop .prompt {
+        background-color: rgba(0, 0, 0, 0.6);
+        position: absolute;
+    }
+    .my-senator-desktop .title {
+        top: 0;
+        right: 0;
+        left: 0;
+        text-align: center;
+    }
+    .my-senator-desktop .prompt {
+        bottom: 0;
+        right: 0;
+        left: 0;
+        text-align: center;
+    }
+    .my-senator-desktop a {
+        color: #fff;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .my-senator-desktop {
+        font-size: 14px;
+    }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+    .my-senator-desktop {
+        font-size: 15px;
+    }
+}
+@media (min-width: 1200px) {
+    .my-senator-desktop {
+        font-size: 16px;
+    }
+}
+
+.header-top .home-link {
+    display: block;
+}
+
+
+
+
+
+
+
 /* responsive slides css */
 .rslides {
     position: relative;

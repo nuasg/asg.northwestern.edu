@@ -12,8 +12,7 @@
 <div class="row">
   <div class="col-md-12">
     <h1>Senators</h1>
-    <!--<p>Your student representatives. <a href="#" class="toggle-view">Switch to table view</a></p>-->
-    <p>Your student representatives.</p>
+    <p>Your student representatives. <a href="#" class="toggle-view">Switch to table view</a></p>
     <p><input class="senator-search form-control" placeholder="Filter by name or group" autofocus></p>
   </div>
 </div>
@@ -51,7 +50,11 @@
           <td class="searchable"><a href="/people/{{ senator.id }}/{{ senator.full_name|slugify }}/">{{ senator.full_name }}</a></td>
           <td class="searchable">{{ senator.groups_represented }}</td>
           <td><a href="mailto:{{ senator.email }}">Email {{ senator.first_name }}</a></td>
-          <td><a href="#">Make {{ senator.first_name }} my senator</a></td>
+          {% if my_senator == senator %}
+          <td><a href="/select-senator/?clear">(click to clear)</a></td>
+          {% else %}
+          <td><a href="/select-senator/?senator_id={{ senator.id }}">Make {{ senator.first_name }} my senator</a></td>
+          {% endif %}
         </tr>
         {% endfor %}
       </tbody>
@@ -66,16 +69,22 @@
 <script src="{% static 'tablesaw/tablesaw.stackonly.js' %}"></script>
 <script>
 var mode = 'grid';
+if (window.location.hash == '#table') {
+  mode = 'table';
+  $('.senator-grid').hide();
+  $('.senator-table').show();
+  $('.toggle-view').html('Switch to grid view');
+}
 
 $('.toggle-view').click(function() {
   if (mode == 'grid') {
-    $('.senator-grid').hide()
-    $('.senator-table').show()
+    $('.senator-grid').hide();
+    $('.senator-table').show();
     mode = 'table';
     $(this).html('Switch to grid view');
   } else {
-    $('.senator-grid').show()
-    $('.senator-table').hide()
+    $('.senator-grid').show();
+    $('.senator-table').hide();
     mode = 'grid';
     $(this).html('Switch to table view');
   }

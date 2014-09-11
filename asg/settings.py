@@ -58,6 +58,8 @@ ROOT_URLCONF = 'asg.urls'
 
 WSGI_APPLICATION = 'asg.wsgi.application'
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
@@ -184,6 +186,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages',
     # add context processor for Django suit - new admin interface
     'django.core.context_processors.request',
+    'asg.context_processors.my_senator',
 )
 
 
