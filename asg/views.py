@@ -13,7 +13,7 @@ from django.core.paginator import Paginator
 from django.core.servers.basehttp import FileWrapper
 from django.db.models import Q
 from django.http import StreamingHttpResponse
-from django.shortcuts import render_to_response, get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.template import RequestContext
 from django.utils import timezone
 from easy_pdf.views import PDFTemplateView
@@ -33,34 +33,32 @@ def home(request):
 
 def page(request, page_slug):
     page = get_object_or_404(Page, slug=page_slug)
-    return render_to_response('page.html', locals())
+    return render(request, 'page.html', locals())
 
 def for_students(request):
     users = 'Student'
     desc = "ASG has all the info you need to know about what's happening every week, how to work with a faculty member, how to propose a new project, and more. Our online services help you find a job, sell/buy your books, and get a cab, while our fairs provide opportunities to connect with student groups and find off-campus housing."
     resources = Resource.objects.filter(type='R', users='ST', is_active=True)
     services = Resource.objects.filter(type='S', users='ST', is_active=True)
-    return render_to_response('resources.html', locals(),
-                context_instance=RequestContext(request))
+    return render(request, 'resources.html', locals())
 
 def for_groups(request):
     users = 'Student Group'
     desc = 'Want to know how to start a new student group, finance it, or publicize it? Check out our 2013-14 Student Handbook for all this and more. Also be sure to read the PR Guide for info on how to flyer, reserve rooms and tables, advertise, and print.'
     resources = Resource.objects.filter(type='R', users='SG', is_active=True)
     services = Resource.objects.filter(type='S', users='SG', is_active=True)
-    return render_to_response('resources.html', locals(), 
-                context_instance=RequestContext(request))
+    return render(request, 'resources.html', locals())
 
 def calendar(request):
     page_name = 'Calendar'
     calendars = GoogleCalendar.objects.filter(display_on_calendar_page=True)
-    return render_to_response('calendar.html', locals())
+    return render(request, 'calendar.html', locals())
 
 def office_hours(request):
     page_name = 'Office Hours'
     office_hours = True
     calendars = GoogleCalendar.objects.filter(is_office_hours=True)
-    return render_to_response('calendar.html', locals())
+    return render(request, 'calendar.html', locals())
 
 news_per_page = 10
 def list_news(request):
@@ -70,7 +68,7 @@ def list_news(request):
     pages = xrange(1, last_page+1)
     page = int(request.GET.get('page', 1))
     news = p.page(page).object_list
-    return render_to_response('list_news.html', locals())
+    return render(request, 'list_news.html', locals())
 
 legislation_per_page = 10
 def list_legislation(request):
@@ -80,7 +78,7 @@ def list_legislation(request):
     pages = xrange(1, last_page+1)
     page = int(request.GET.get('page', 1))
     bills = p.page(page).object_list
-    return render_to_response('list_legislation.html', locals())
+    return render(request, 'list_legislation.html', locals())
 
 news_links_per_page = 10
 def list_news_links(request):
@@ -90,46 +88,46 @@ def list_news_links(request):
     pages = xrange(1, last_page+1)
     page = int(request.GET.get('page', 1))
     news_links = p.page(page).object_list
-    return render_to_response('list_news_links.html', locals())
+    return render(request, 'list_news_links.html', locals())
 
 def news(request, year, month, slug):
     from_homepage = 'from_homepage' in request.GET
     news = get_object_or_404(News, date_posted__year=year, date_posted__month=month, slug=slug)
-    return render_to_response('news.html', locals())
+    return render(request, 'news.html', locals())
 
 def contact(request):
     exec_board_positions = Position.objects.filter(on_exec_board=True)
     senate_leadership_positions = Position.objects.filter(senate_leadership=True)
-    return render_to_response('contact.html', locals())
+    return render(request, 'contact.html', locals())
 
 def cabinet(request):
     exec_members = Person.objects.filter(positions__on_exec_board=True)\
                          .order_by('positions__order')
-    return render_to_response('cabinet.html', locals())
+    return render(request, 'cabinet.html', locals())
 
 def senators(request):
     senators = Person.objects.filter(positions__name='Senator').order_by('groups_represented')
-    return render_to_response('senators.html', locals())
+    return render(request, 'senators.html', locals())
 
 def projects(request):
     # iterator() doesn't supply count()
     projects = list(Project.objects.filter(active=True))
     random.shuffle(projects)
-    return render_to_response('projects.html', locals())
+    return render(request, 'projects.html', locals())
 
 def committees(request):
     committees = list(Committee.objects.filter(show_in_list=True))
     random.shuffle(committees)
-    return render_to_response('committees.html', locals())
+    return render(request, 'committees.html', locals())
 
 def view_project(request, id):
     project = get_object_or_404(Project, id=int(id))
-    return render_to_response('view_project.html', locals())
+    return render(request, 'view_project.html', locals())
 
 def people(request, id):
     'Display the profile of a single person'
     person = get_object_or_404(Person, id=int(id))
-    return render_to_response('person.html', locals())
+    return render(request, 'person.html', locals())
 
 TUMBLR_API_KEY = os.environ['TUMBLR_API_KEY']
 def parse_post_date(post):
@@ -140,7 +138,7 @@ def blog(request):
     response = requests.get(api_url)
     posts = response.json()['response']['posts']
     map(parse_post_date, posts)
-    return render_to_response('blog.html', locals())
+    return render(request, 'blog.html', locals())
 
 def login_user(request):
     if request.method == 'GET':
@@ -164,8 +162,7 @@ def login_user(request):
                 login_error = 'Your account has been deactivated'
         else:
             login_error = 'Invalid username or password'
-    return render_to_response('login.html', locals(),
-                context_instance=RequestContext(request))
+    return render(request, 'login.html', locals())
 
 @login_required
 def edit_profile(request):
@@ -181,8 +178,7 @@ def edit_profile(request):
             person_form.save()
             update_success = True
         person_form = PersonForm(instance=person)
-    return render_to_response('edit_profile.html', locals(),
-                context_instance=RequestContext(request))
+    return render(request, 'edit_profile.html', locals())
 
 
 # When a visitor selects a senator as "My senator"
