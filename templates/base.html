@@ -46,16 +46,19 @@
           {% if my_senator %}
           <div class="my-senator-desktop">
             <div class="title">My senator</div>
-            {% if my_senator.photo %}
-            <img src="{% cropped_thumbnail my_senator thumbnail_size %}" alt="">
-            {% else %}
-            <img src="/uploads/profile_photos/default.jpg" alt="">
-            {% endif %}
+            <a href="/people/{{ my_senator.id }}/{{ my_senator.full_name|slugify }}/">
+              {% if my_senator.photo %}
+              <img src="{% cropped_thumbnail my_senator thumbnail_size %}" alt="">
+              {% else %}
+              <img src="/uploads/profile_photos/default.jpg" alt="">
+              {% endif %}
+            </a>
             <div class="prompt"><a href="mailto:{{ my_senator.email }}">Email {{ my_senator.first_name }}</a></div>
           </div>
           <div class="my-senator-mobile">
             My senator is {{ my_senator.full_name }}. <a href="mailto:{{ my_senator.email }}">Email {{ my_senator.first_name }}</a>
           </div>
+
           {% else %}
           <div class="my-senator-desktop">
             <div class="title">My senator</div>
