@@ -440,6 +440,7 @@ input {
 
 
 /* my senator */
+
 @media (max-width: 767px) {
     .my-senator-desktop {
         display: none;
@@ -476,7 +477,7 @@ input {
     }
     .my-senator-desktop .title,
     .my-senator-desktop .prompt {
-        background-color: rgba(0, 0, 0, 0.6);
+        background-color: rgba(0, 0, 0, 0.5);
         position: absolute;
     }
     .my-senator-desktop .title {

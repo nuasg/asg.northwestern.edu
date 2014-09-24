@@ -32,6 +32,7 @@ class News(models.Model):
 
 
 min_profile_size = '200x200'
+my_senator_size = '262x262'
 class Person(models.Model):
     user = models.ForeignKey(User, null=True, blank=True)
     netid = models.CharField(max_length=6, blank=True)
@@ -45,6 +46,7 @@ class Person(models.Model):
 
     photo = ImageCropField(upload_to='profile_photos', blank=True, null=True, help_text='Photos must be at least %s in size.' % min_profile_size)
     thumbnail_size = ImageRatioField('photo', min_profile_size, size_warning=True)
+    my_senator_size = ImageRatioField('photo', my_senator_size)
 
     groups_represented = models.TextField(blank=True, help_text='Abbreviations of the groups this person represents')
     full_groups = models.TextField(blank=True, help_text='For senators, full names of the groups this person represents')

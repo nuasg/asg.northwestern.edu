@@ -29,7 +29,7 @@
         {% if request.user == person.user %}
         <a class="btn btn-default person-edit" href="/edit_profile/">Edit my profile</a>
         {% elif person == my_senator %}
-        <strong>{{ person.first_name }} is my senator.</strong> <a href="/select-senator/?clear">(click to clear)</a>
+        <strong>{{ person.first_name }} is my senator</strong> <a href="/select-senator/?clear">(click to clear)</a>
         {% elif person.is_senator %}
         <a href="/select-senator/?senator_id={{ person.id }}">Make {{ person.first_name }} my senator</a>
         {% endif %}
