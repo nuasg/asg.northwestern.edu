@@ -52,7 +52,7 @@ class ASGAuthForm(AuthenticationForm):
         self.helper.add_input(Submit('login', 'Log in'))
 
         self.helper.layout = Layout(
-            Field('username', placeholder='NetID'),
-            Field('password', placeholder='Password'),
-            Field('login'),
+            Field('username', placeholder='NetID', tabindex='1'),
+            Field('password', placeholder='Password', tabindex='2'),
+            Field('login', tabindex='3'),
         )
