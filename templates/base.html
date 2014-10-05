@@ -48,7 +48,7 @@
             <div class="title">My senator</div>
             <a href="/people/{{ my_senator.id }}/{{ my_senator.full_name|slugify }}/">
               {% if my_senator.photo %}
-              <img src="{% cropped_thumbnail my_senator my_senator_size %}" alt="">
+              <img src="{% cropped_thumbnail my_senator thumbnail_size %}" alt="">
               {% else %}
               <img src="/uploads/profile_photos/default.jpg" alt="">
               {% endif %}
