@@ -55,18 +55,12 @@
             </a>
             <div class="prompt"><a href="mailto:{{ my_senator.email }}">Email {{ my_senator.first_name }}</a></div>
           </div>
-          <div class="my-senator-mobile">
-            My senator is {{ my_senator.full_name }}. <a href="mailto:{{ my_senator.email }}">Email {{ my_senator.first_name }}</a>
-          </div>
 
           {% else %}
           <div class="my-senator-desktop">
             <div class="title">My senator</div>
             <img src="/uploads/profile_photos/default.jpg" alt="">
             <div class="prompt"><a href="/senators/#table">Find my senator</a></div>
-          </div>
-          <div class="my-senator-mobile">
-            <a href="/senators/#table">Find my senator</a>
           </div>
           {% endif %}
         </div>

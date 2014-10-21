@@ -445,22 +445,10 @@ input {
     .my-senator-desktop {
         display: none;
     }
-    .my-senator-mobile {
-        display: block;
-        background: #333;
-        color: #fff;
-        text-align: center;
-    }
-    .my-senator-mobile a {
-        color: #fff;
-    }
 }
 @media (min-width: 768px) {
     .header-top {
         position: relative;
-    }
-    .my-senator-mobile {
-        display: none;
     }
     .my-senator-desktop {
         display: block;
