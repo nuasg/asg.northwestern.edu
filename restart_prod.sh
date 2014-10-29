@@ -1,3 +1,3 @@
 #!/bin/sh
 
-kill -HUP `cat /tmp/asg.northwestern.edu.pid`
+kill -HUP `cat /var/www/pids/asg.northwestern.edu.pid`
