@@ -9,7 +9,8 @@
 <script type="text/javascript" src="{% static 'selectize/selectize.min.js' %}"></script>
 <script>
 $(function() {
-  if ($('.auth-user.change-form').length === 0) {
+    if ($('.auth-user.change-form').length === 0 &&
+        $('.auth-group.change-form').length === 0) {
     $('select')
       .css('z-index', '400')
       .selectize({
