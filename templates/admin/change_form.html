@@ -9,11 +9,13 @@
 <script type="text/javascript" src="{% static 'selectize/selectize.min.js' %}"></script>
 <script>
 $(function() {
-  $('select')
-    .css('z-index', '400')
-    .selectize({
-      dropdownParent: 'body',
-    });
+  if ($('.auth-user.change-form').length === 0) {
+    $('select')
+      .css('z-index', '400')
+      .selectize({
+        dropdownParent: 'body',
+      });
+  }
 });
 </script>
 <style>
